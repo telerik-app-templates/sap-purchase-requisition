@@ -1,0 +1,18 @@
+<div data-role="view" id="workflow-items-view" data-model="app.WorkflowItems">
+    <header data-role="header">
+        <div data-role="navbar">
+            Workflow Items
+            <a data-role="backbutton" data-align="left" data-icon="arrow-back"></a>
+        </div>
+    </header>
+
+    <ul id="workflow-items-list" data-role="listview" data-style="inset" data-bind="source: workItems" data-template="workflowitemsTemplate">
+
+    </ul>
+</div>
+
+<script type="text/x-kendo-template" id="workflowitemsTemplate">
+    <div data-role="touch" data-bind="events : { tap : nav }"> 
+        <h2>${WorkitemID}</h2>
+    </div>
+</script>

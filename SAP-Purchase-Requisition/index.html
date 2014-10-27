@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+
+    <script src="cordova.js"></script>
+    <script src="kendo/js/jquery.min.js"></script>
+    <script src="kendo/js/kendo.mobile.min.js"></script>
+    <script src="scripts/base64.js"></script>
+
+    <!-- app -->
+    <script src="scripts/settings.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/login.js"></script>
+    <script src="scripts/workflowitems.js"></script>
+    <script src="scripts/workflowitem.js"></script>
+    <script src="scripts/workflowaction.js"></script>
+
+</head>
+<body id="reqApp">
+    <div id="homeView" data-role="view" data-model="app.Login" data-show="app.Login.show">
+        <header data-role="header">
+            <div data-role="navbar">
+                Purchase Requisition
+            </div>
+        </header>
+
+        <form id="login-form">
+            <ul data-role="listview" data-style="inset">
+                <li class="username">
+                    <input type="text" id="loginUsername" data-bind="value: username" placeholder="Username" required validationmessage="Username is required!" />
+                </li>
+                <li class="password">
+                    <input type="password" id="loginPassword" data-bind="value: password" placeholder="Password" required validationmessage="Password is required!" />
+                </li>
+            </ul>
+        </form>
+
+        <a data-role="button" data-bind="events: { click: login }">Login</a>
+
+    </div>
+
+</body>
+</html>

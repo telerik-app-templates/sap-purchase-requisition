@@ -1,0 +1,22 @@
+<div data-role="view" id="workflow-item-view" data-model="app.WorkflowItem" data-init="app.WorkflowItem.init" data-show="app.WorkflowItem.show">
+    <header data-role="header">
+        <div data-role="navbar">
+            WorkItem
+            <a data-role="backbutton" data-align="left" data-icon="arrow-back"></a>
+            <a data-role="button" data-align="right" data-icon="details" data-bind="events: { click: approve }"></a>
+            <a data-role="button" data-align="right" data-icon="reply" data-bind="events: { click: reject }"></a>
+        </div>
+    </header>
+
+    <ul data-role="listview" id="item-details-listview" data-style="inset" data-bind="source: workflowDetails" data-template="workflowitemTemplate">
+
+    </ul>
+
+</div>
+
+<script type="text/x-kendo-template" id="workflowitemTemplate">
+    <div data-role="touch"> 
+        <h2>${WorkitemID}</h2>
+        <span>${PrNumber}</span>
+    </div>
+</script>
