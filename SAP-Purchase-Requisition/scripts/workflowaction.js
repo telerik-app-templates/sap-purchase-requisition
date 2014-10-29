@@ -50,7 +50,8 @@ app.WorkflowAction = (function () {
             {
                 console.log(data);
                 app.mobileApp.hideLoading();
-                app.mobileApp.navigate("#:back");
+                appSettings.itemUpdated = true;
+                app.mobileApp.navigate("views/workflowitemsView.html");
             });
             
         };

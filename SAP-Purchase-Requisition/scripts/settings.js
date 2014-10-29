@@ -7,6 +7,7 @@ var appSettings = {
         prWorkflow: "http://108.61.40.213:8002/sap/opu/odata/sap/GBAPP_PRAPPROVAL;o=EC6_800/ApplyDecision?WorkitemID=%27#WorkitemID#%27&DecisionKey=%27#DecisionKey#%27&Comment=%27#Comment#%27"
     },
 
-    selectedWorkItem: null
+    selectedWorkItem: null,
+    itemUpdated: true
 
 };

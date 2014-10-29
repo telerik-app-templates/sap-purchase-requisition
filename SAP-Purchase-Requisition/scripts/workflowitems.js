@@ -53,6 +53,14 @@ app.WorkflowItems = (function () {
                     complete: function (xhr) {
                         localStorage.setItem("token", xhr.getResponseHeader("X-CSRF-Token"));
                     }
+                },
+                parameterMap: function (options, type) {
+                    var paramMap = kendo.data.transports.odata.parameterMap(options);
+
+                    delete paramMap.$inlinecount; // <-- remove inlinecount parameter.
+                    //delete paramMap.$format; // <-- remove format parameter.
+
+                    return paramMap;
                 }
             },
             sort: {
@@ -68,25 +76,30 @@ app.WorkflowItems = (function () {
 
     var workflowitemsViewModel = (function () {
 
-        var init = function () {
+        var navbar;
 
+        var init = function ( e ) {
+            navbar = e.view.header.find('.km-navbar').data('kendoMobileNavBar');
         };
 
-        var show = function () {
-            
+        var afterShow = function () {
+            var dataSource = workflowitemsModel.workflowitems;
+            appSettings.itemUpdated = false;
+            dataSource.read();
+                
+            dataSource.bind("change", function () {
+                navbar.title("(" + this.data().length + ")");
+            });
         };
 
         var navToWorkItem = function (e) {
-            console.log("Tapped item");
-            console.log(e.data);
-            console.log(e.data.WorkitemID);
             appSettings.selectedWorkItem = e.data;
             app.mobileApp.navigate("views/workflowitemView.html");
         };
 
         return {
             init: init,
-            show: show,
+            afterShow: afterShow,
             workItems: workflowitemsModel.workflowitems,
             nav: navToWorkItem
 

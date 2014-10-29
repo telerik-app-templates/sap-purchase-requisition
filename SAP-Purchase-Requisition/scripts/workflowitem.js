@@ -47,19 +47,22 @@ app.WorkflowItem = (function () {
         };
 
         var show = function () {
+            console.log("show");
             currentItem = appSettings.selectedWorkItem;
 
             var listView = $("#item-details-listview").data("kendoMobileListView");
             if (listView) {
-                listView.setDataSource(workflowitemModel.workflowDetails);
+                //listView.setDataSource(workflowitemModel.workflowDetails);
+                console.log("listView check");
+                listView.dataSource.read();
             }
-            else {
-                $("#item-details-listview").kendoMobileListView({
-                    style: "inset",
-                    dataSource: workflowitemModel.workflowDetails,
-                    template: $("#workflowitemTemplate").text()
-                });
-            }
+
+            $("#item-details-listview").kendoMobileListView({
+                style: "inset",
+                dataSource: workflowitemModel.workflowDetails,
+                template: $("#workflowitemTemplate").text()
+            });
+            
         };
 
         var approve = function () {
