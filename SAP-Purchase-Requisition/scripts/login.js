@@ -16,6 +16,10 @@ app.Login = (function () {
         var show = function () {
             $("#loginUsername").val(uName);
             $("#loginPassword").val(pWord);
+
+            localStorage.setItem("authHeaderValue", "");
+            localStorage.setItem("authenticated", false);
+            localStorage.setItem("token", "");
         };
 
         var login = function () {

@@ -23,13 +23,6 @@ app.WorkflowItem = (function () {
 
                     return paramMap;
                 }
-            },
-            change: function (e) {
-                if (e.items && e.items.length > 0) {
-                    console.log("details!");
-                } else {
-                    console.log("no details");
-                }
             }
         });
 
@@ -46,23 +39,46 @@ app.WorkflowItem = (function () {
 
         };
 
-        var show = function () {
-            console.log("show");
+        var beforeShow = function () {
             currentItem = appSettings.selectedWorkItem;
+            $("#notes-div").hide();
 
-            var listView = $("#item-details-listview").data("kendoMobileListView");
-            if (listView) {
-                //listView.setDataSource(workflowitemModel.workflowDetails);
-                console.log("listView check");
-                listView.dataSource.read();
-            }
+            var ds = workflowitemModel.workflowDetails;
 
-            $("#item-details-listview").kendoMobileListView({
-                style: "inset",
-                dataSource: workflowitemModel.workflowDetails,
-                template: $("#workflowitemTemplate").text()
+            ds.bind("change", function (e) {
+                if (e.items && e.items.length > 0) {
+                    var obs = e.items[0];
+
+                    // Formatted fields
+                    obs.FormattedPrice = function () {
+                        return obs.Value + " / " + obs.Quantity;
+                    };
+                    obs.MaterialGroup = function () {
+                        return obs.ProductDetails.MaterialGroupDescription + " (" + obs.ProductDetails.MaterialGroup + ")";
+                    }
+
+                    // Bind details form
+                    kendo.bind($("#workflow-item-div"), obs);
+
+                    // Bind notes if any
+                    if (obs.NumberOfNotes > 0) {
+                        $("#notes-div").show();
+
+                        console.log(obs.Notes.results);
+
+                        $("#notes-list").kendoMobileListView({
+                            style: "inset",
+                            dataSource: obs.Notes.results,
+                            template: $("#notes-item-template").text()
+                        });
+
+                    } 
+                } else {
+                    console.log("no details!");
+                }
             });
-            
+
+            ds.read();
         };
 
         var approve = function () {
@@ -77,7 +93,7 @@ app.WorkflowItem = (function () {
 
         return {
             init: init,
-            show: show,
+            beforeShow: beforeShow,
             workflowDetails: workflowitemModel.workflowDetails,
             approve: approve,
             reject: reject

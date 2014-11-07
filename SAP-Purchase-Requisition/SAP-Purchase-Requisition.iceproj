@@ -33,6 +33,7 @@
     <Content Include="scripts\workflowaction.js" />
     <Content Include="scripts\workflowitem.js" />
     <Content Include="scripts\workflowitems.js" />
+    <Content Include="styles\main.css" />
     <Content Include="views\workflowActionView.html" />
     <Content Include="views\workflowitemsView.html" />
     <Content Include="views\workflowitemView.html" />
@@ -93,6 +94,7 @@
     <Folder Include="kendo\styles\" />
     <Folder Include="kendo\styles\images\" />
     <Folder Include="kendo\typescript\" />
+    <Folder Include="styles\" />
     <Folder Include="views\" />
     <Folder Include="scripts\" />
     <Folder Include="Plugins\" />

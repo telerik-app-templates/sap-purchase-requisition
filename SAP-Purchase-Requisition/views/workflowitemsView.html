@@ -2,7 +2,6 @@
     <header data-role="header">
         <div data-role="navbar">
             <span>Active </span><span data-role="view-title"></span>
-            <a data-role="backbutton" data-align="left" data-icon="arrow-back"></a>
         </div>
     </header>
 
@@ -14,10 +13,9 @@
 <script type="text/x-kendo-template" id="workflowitemsTemplate">
     <div data-role="touch" data-bind="events : { tap : nav }"> 
         <h3>${CreatedByName}</h3>
-        <div style="border-color: blue; border-thickness: 1px; border-style: solid">
-        <span>${Value} ${Currency}</span>
-        <span style="position: absolute; right: 12px">${ItemDescriptions}</span>
-    </div>
-    
+        <div>
+            <span>${Value} ${Currency}</span>
+            <span style="position: absolute; right: 12px">${ItemDescriptions}</span>
+        </div>    
     </div>
 </script>

@@ -1,0 +1,25 @@
+body {
+}
+
+.genericLabel {
+    margin-left: 12px;
+    clear: both
+}
+
+.reqLabel {
+    margin-left: 12px;
+    font-weight: bold;
+}
+
+.reqDetail {
+    position: absolute;
+    right: 12px;
+}
+
+.reqFloat {
+    float: right;
+}
+
+#workflow-item-div div {
+    margin-bottom: 1.5em;
+}
