@@ -10,7 +10,7 @@ app.Login = (function () {
             authenticated = false;
 
         var init = function () {
-            dataSync.createOfflineContext("testContext");
+
         };
 
         var show = function () {
@@ -22,6 +22,43 @@ app.Login = (function () {
             uName = $("#loginUsername").val();
             pWord = $("#loginPassword").val();
             console.log(uName);
+
+            console.log("login init2");
+            dataSync.createOfflineContext({
+                ProviderName: "Everlive",
+                LocalDatabaseName: "poDB",
+                ApiKey: "fake",
+                Username: "fake",
+                Password: "fake",
+                ApiVersion: 1
+            },
+                function success(s) {
+                    console.log("createSuccess");
+                    console.log(s);
+
+                    // if works, add class
+                    dataSync.registerClass({
+                        EntityName: 'PurchaseOrderExpanded',
+                        PrimaryKeyValue: 'WorkitemID',
+                        PropertyValues: {
+                            WorkitemID: 'String',
+                            CreatedByID: 'String',
+                            PrNumber: 'String',
+                            Value: 'String'
+                        }
+                    }, function success(s) {
+                        console.log(s);
+                    }, function fail(f) {
+                        console.log(f);
+                    });
+                },
+                function fail(f) {
+                    console.log("createFail");
+                    console.log(f);
+                });
+
+            console.log("post dataSync register class");
+
             var authHeaderValue = "Basic " + $.base64.btoa(uName + ":" + pWord);
             $.ajax({
                 url: appSettings.endpoints.prApproval,

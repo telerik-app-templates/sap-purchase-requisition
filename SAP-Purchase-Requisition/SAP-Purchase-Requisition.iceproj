@@ -32,7 +32,13 @@
     <Content Include="Plugins\datasync-plugin\src\android\CommonLib\AndroidManifest.xml">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Plugins\datasync-plugin\src\android\CommonLib\build.xml">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Plugins\datasync-plugin\src\android\CommonLib\libs\Common.jar">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\datasync-plugin\src\android\CommonLib\proguard-project.txt">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Plugins\datasync-plugin\src\android\CommonLib\project.properties">
@@ -44,10 +50,16 @@
     <Content Include="Plugins\datasync-plugin\src\android\CommonLib\res\values\values.xml">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Plugins\datasync-plugin\src\android\CommonLib\src\emptyfile.txt">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Plugins\datasync-plugin\src\android\com\telerik\cordova\DataSyncPlugin.java">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Plugins\datasync-plugin\src\android\DataSyncLib\AndroidManifest.xml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\datasync-plugin\src\android\DataSyncLib\build.xml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Plugins\datasync-plugin\src\android\DataSyncLib\libs\classes.jar">
@@ -56,7 +68,13 @@
     <Content Include="Plugins\datasync-plugin\src\android\DataSyncLib\libs\dexmaker-1.0.jar">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Plugins\datasync-plugin\src\android\DataSyncLib\proguard-project.txt">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Plugins\datasync-plugin\src\android\DataSyncLib\project.properties">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\datasync-plugin\src\android\DataSyncLib\src\empty.txt">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Plugins\datasync-plugin\src\ios\DataSync.framework\DataSync">
@@ -89,24 +107,12 @@
     <Content Include="Plugins\datasync-plugin\src\ios\DataSync.framework\Versions\A\Headers\TKODataClient.h">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Plugins\datasync-plugin\src\ios\DataSync.framework\Versions\A\Headers\TKODataCredential.h">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Plugins\datasync-plugin\src\ios\DataSync.framework\Versions\A\Headers\TKPersistencePublicProtocol.h">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Plugins\datasync-plugin\src\ios\DataSync.framework\Versions\A\Headers\TKTableNamesMapper.h">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Plugins\datasync-plugin\src\ios\DataSync.framework\Versions\Current">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Plugins\datasync-plugin\src\ios\DataSync.h">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Plugins\datasync-plugin\src\ios\DataSync.m">
-      <SubType>Content</SubType>
-    </Content>
+    <Content Include="Plugins\datasync-plugin\src\ios\DataSync.framework\Versions\A\Headers\TKODataCredential.h" />
+    <Content Include="Plugins\datasync-plugin\src\ios\DataSync.framework\Versions\A\Headers\TKPersistencePublicProtocol.h" />
+    <Content Include="Plugins\datasync-plugin\src\ios\DataSync.framework\Versions\A\Headers\TKTableNamesMapper.h" />
+    <Content Include="Plugins\datasync-plugin\src\ios\DataSync.framework\Versions\Current" />
+    <Content Include="Plugins\datasync-plugin\src\ios\DataSync.h" />
+    <Content Include="Plugins\datasync-plugin\src\ios\DataSync.m" />
     <Content Include="Plugins\datasync-plugin\src\ios\TKDynamicClass.h" />
     <Content Include="Plugins\datasync-plugin\src\ios\TKDynamicClass.m" />
     <Content Include="Plugins\datasync-plugin\www\dataSync.js" />
@@ -185,11 +191,13 @@
     <Folder Include="Plugins\datasync-plugin\src\android\CommonLib\res\" />
     <Folder Include="Plugins\datasync-plugin\src\android\CommonLib\res\layout\" />
     <Folder Include="Plugins\datasync-plugin\src\android\CommonLib\res\values\" />
+    <Folder Include="Plugins\datasync-plugin\src\android\CommonLib\src\" />
     <Folder Include="Plugins\datasync-plugin\src\android\com\" />
     <Folder Include="Plugins\datasync-plugin\src\android\com\telerik\" />
     <Folder Include="Plugins\datasync-plugin\src\android\com\telerik\cordova\" />
     <Folder Include="Plugins\datasync-plugin\src\android\DataSyncLib\" />
     <Folder Include="Plugins\datasync-plugin\src\android\DataSyncLib\libs\" />
+    <Folder Include="Plugins\datasync-plugin\src\android\DataSyncLib\src\" />
     <Folder Include="Plugins\datasync-plugin\src\ios\" />
     <Folder Include="Plugins\datasync-plugin\src\ios\DataSync.framework\" />
     <Folder Include="Plugins\datasync-plugin\src\ios\DataSync.framework\Versions\" />
