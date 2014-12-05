@@ -10,7 +10,7 @@ app.Login = (function () {
             authenticated = false;
 
         var init = function () {
-
+            dataSync.createOfflineContext("testContext");
         };
 
         var show = function () {

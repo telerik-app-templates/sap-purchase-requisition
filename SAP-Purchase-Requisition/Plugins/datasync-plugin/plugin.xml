@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.telerik.datasync"
+    version="1.1">
+
+    <name>Telerik DataSync</name>
+    <description>This plugin allows the app to include Telerik DataSync component.</description>
+    <license>Commercial</license>
+    <keywords>cordova,device</keywords>
+    
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <js-module src="www/dataSync.js" name="dataSync">
+        <clobbers target="dataSync" />
+    </js-module>
+
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="DataSync">
+                <param name="ios-package" value="DataSync"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/DataSync.h" />
+        <source-file src="src/ios/DataSync.m" />
+        <header-file src="src/ios/TKDynamicClass.h" />
+        <source-file src="src/ios/TKDynamicClass.m" />
+        <framework src="src/ios/DataSync.framework" weak="false" custom="true" />
+        <framework src="libsqlite3.dylib" />
+    </platform>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="DataSync">
+                <param name="android-package" value="com.telerik.cordova.DataSyncPlugin" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+        </config-file>
+
+        <source-file src="src/android/com/telerik/cordova/DataSyncPlugin.java" target-dir="src/com/telerik/cordova" />
+
+    	<framework src="src/android/CommonLib" custom="true" />
+	    <framework src="src/android/DataSyncLib" custom="true" />
+
+              
+    </platform>
+</plugin>
