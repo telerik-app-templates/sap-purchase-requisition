@@ -26,6 +26,7 @@ import com.telerik.widget.datasync.syncengine.DataSyncPolicy;
 import com.telerik.widget.datasync.syncengine.DataSyncReachabilityOptions;
 import com.telerik.widget.datasync.syncengine.DataSyncResolutionType;
 import com.telerik.widget.datasync.syncengine.DataSyncType;
+import com.telerik.widget.datasync.syncengine.EntityTypeResolver;
 
 public class DataSyncPlugin extends CordovaPlugin {
 	private CallbackContext callbackContext;
@@ -34,8 +35,6 @@ public class DataSyncPlugin extends CordovaPlugin {
 
 	private static final String PROVIDER_PROPERTY_KEY = "ProviderName";
 	private static final String HOSTNAME_PROPERTY_KEY = "ProviderHostName";
-	private static final String USERNAME_PROPERTY_KEY = "Username";
-	private static final String PASSWORD_PROPERTY_KEY = "Password";
 	private static final String API_KEY_PROPERTY_KEY = "ApiKey";
 	private static final String API_VERSION_PROPERTY_KEY = "ApiVersion";
 	private static final String LOCAL_DATABASE_PROPERTY_KEY = "LocalDatabaseName";
@@ -44,18 +43,18 @@ public class DataSyncPlugin extends CordovaPlugin {
 	private static final String DATA_SYNC_TIMEOUT_PROPERTY_KEY = "DataSyncTimeout";
 	private static final String DATA_SYNC_TIME_INTERVAL_PROPERTY_KEY = "DataSyncTimeInterval";
 	private static final String DATA_SYNC_REACHABILITY_PROPERTY_KEY = "DataSyncReachability";
-	
+
 	private static final String ENTITY_NAME_ARGUMENT_KEY = "EntityName";
 	private static final String PRIMARY_KEY_NAME_ARGUMENT_KEY = "PrimaryKeyName";
 	private static final String QUERY_ARGUMENT_KEY = "Query";
 	private static final String PROPERTY_VALUES_ARGUMENT_KEY = "PropertyValues";
-
-	private static final String MULTIPLE_POINTS_MAP_ARGUMENT_KEY = "EntityPointsMap";
-	private static final String MAPPING_ARGUMENT_KEY = "Mappping";
-	private static final String TYPE_MAPPING_ARGUMENT_KEY = "TypeMapping";
-	private static final String SYSTEM_FIELDS_MAPPING_ARGUMENT_KEY = "SystemFieldsMapping";
+	private static final String PRIMARY_KEY_AUTO_INCREMENT = "PrimaryKeyAutoIncrement";
 
 	public DataSyncPlugin() {
+	}
+
+	@Override
+	protected void pluginInitialize() {
 		// Init the dynamic class generator and pass it to the class generator
 		// engine.
 		DexMaker dexMaker = new DexMaker();
@@ -70,14 +69,35 @@ public class DataSyncPlugin extends CordovaPlugin {
 	public boolean execute(String action, JSONArray args,
 			CallbackContext callbackContext) throws JSONException {
 		// TODO Auto-generated method stub
-		this.callbackContext = callbackContext;
+ 		this.callbackContext = callbackContext;
 		if (action.compareToIgnoreCase("createContext") == 0) {
 			this.createContext(args);
+		} else if (action.compareToIgnoreCase("saveChanges") == 0) {
+			try {
+				if (this.dataSyncContext.saveChanges()) {
+					PluginResult pResult = new PluginResult(Status.OK);
+					this.callbackContext.sendPluginResult(pResult);
+				} else {
+					PluginResult pResult = new PluginResult(Status.ERROR,
+							"Could not save changes. Reason unknown.");
+					this.callbackContext.sendPluginResult(pResult);
+				}
+			} catch (Exception e) {
+				PluginResult pResult = new PluginResult(Status.ERROR,
+						e.getMessage());
+				this.callbackContext.sendPluginResult(pResult);
+			}
 		} else if (action.compareToIgnoreCase("syncChanges") == 0) {
 			try {
-				this.dataSyncContext.syncChanges();
-				PluginResult pResult = new PluginResult(Status.OK);
-				this.callbackContext.sendPluginResult(pResult);
+				boolean success = this.dataSyncContext.syncChanges();
+				if (success) {
+					PluginResult pResult = new PluginResult(Status.OK);
+					this.callbackContext.sendPluginResult(pResult);
+				} else {
+					PluginResult pResult = new PluginResult(Status.ERROR,
+							"Could not sync. Reason unknown.");
+					this.callbackContext.sendPluginResult(pResult);
+				}
 			} catch (SynchronizationException e) {
 				PluginResult pResult = new PluginResult(Status.ERROR,
 						e.getMessage());
@@ -187,6 +207,8 @@ public class DataSyncPlugin extends CordovaPlugin {
 				client = new EverliveCloudClient(hostName, apiVersion, apiKey);
 				String localDatabaseName = options
 						.getString(LOCAL_DATABASE_PROPERTY_KEY);
+				localDatabaseName = this.cordova.getActivity().getFilesDir()
+						+ "/" + localDatabaseName;
 				DataSyncPolicy syncPolicy = new DataSyncPolicy();
 
 				if (options.has(DATA_CONFLICT_RESOLUTION_TYPE_PROPERTY_KEY)) {
@@ -220,10 +242,20 @@ public class DataSyncPlugin extends CordovaPlugin {
 					String dataSyncType = options
 							.getString(DATA_SYNC_TYPE_PROPERTY_KEY);
 					syncPolicy.setSyncType(DataSyncType.valueOf(dataSyncType));
+				} else {
+					syncPolicy.setSyncType(DataSyncType.DataSyncOnDemand);
 				}
 
 				this.dataSyncContext = new DataSyncContext(localDatabaseName,
 						client, syncPolicy);
+				this.dataSyncContext.setEntityTypeResolver(new EntityTypeResolver() {
+					
+					@Override
+					public Class resolveType(String arg0) {
+						// TODO Auto-generated method stub
+						return DataSyncPlugin.this.dynamicClassGenerator.getClassForTypeName(arg0);
+					}
+				});
 			}
 		}
 
@@ -233,10 +265,11 @@ public class DataSyncPlugin extends CordovaPlugin {
 		JSONObject propertiesHolder = args.getJSONObject(0);
 		String typeName = propertiesHolder.getString(ENTITY_NAME_ARGUMENT_KEY);
 		if (this.dynamicClassGenerator.getClassForTypeName(typeName) != null) {
-			return false;
+			Class registeredClass = this.dynamicClassGenerator.getClassForTypeName(typeName);
+			this.registerManagedEntity(propertiesHolder, registeredClass);
+			return true;
 		} else {
-			String primaryKeyName = propertiesHolder
-					.getString(PRIMARY_KEY_NAME_ARGUMENT_KEY);
+
 			JSONObject jsonObject = propertiesHolder
 					.getJSONObject(PROPERTY_VALUES_ARGUMENT_KEY);
 			HashMap<String, Class> properties = new HashMap<String, Class>();
@@ -263,13 +296,31 @@ public class DataSyncPlugin extends CordovaPlugin {
 			boolean success;
 
 			success = this.dynamicClassGenerator.registerClassForTypeInfo(ti);
+
+			if (success) {
+				Class entity = this.dynamicClassGenerator.getClassForTypeInfo(ti);
+				this.registerManagedEntity(propertiesHolder, entity);
+			}
+
 			return success;
 		}
 	}
 
+	private void registerManagedEntity(JSONObject propertiesHolder, Class entity)
+			throws JSONException {
+		String primaryKeyName = propertiesHolder
+				.getString(PRIMARY_KEY_NAME_ARGUMENT_KEY);
+		boolean primaryKeyAutoIncrement = propertiesHolder
+				.getBoolean(PRIMARY_KEY_AUTO_INCREMENT);
+	
+		this.dataSyncContext.registerClass(entity,
+				primaryKeyName, primaryKeyAutoIncrement);
+	}
+
 	private JSONArray fetchAllObjects(JSONArray args) throws JSONException {
 		JSONObject propertiesHolder = args.getJSONObject(0);
-		String entityName = propertiesHolder.getString(ENTITY_NAME_ARGUMENT_KEY);
+		String entityName = propertiesHolder
+				.getString(ENTITY_NAME_ARGUMENT_KEY);
 		Class<?> entityType = this.dynamicClassGenerator
 				.getClassForTypeName(entityName);
 
@@ -282,7 +333,8 @@ public class DataSyncPlugin extends CordovaPlugin {
 
 	private JSONArray queryObjects(JSONArray args) throws JSONException {
 		JSONObject propertiesHolder = args.getJSONObject(0);
-		String entityName = propertiesHolder.getString(ENTITY_NAME_ARGUMENT_KEY);
+		String entityName = propertiesHolder
+				.getString(ENTITY_NAME_ARGUMENT_KEY);
 		String query = propertiesHolder.getString(QUERY_ARGUMENT_KEY);
 		Class<?> entityType = this.dynamicClassGenerator
 				.getClassForTypeName(entityName);
@@ -298,8 +350,10 @@ public class DataSyncPlugin extends CordovaPlugin {
 			InvocationTargetException, InstantiationException {
 
 		JSONObject propertiesHolder = args.getJSONObject(0);
-		String entityName = propertiesHolder.getString(ENTITY_NAME_ARGUMENT_KEY);
-		JSONObject entity = propertiesHolder.getJSONObject(PROPERTY_VALUES_ARGUMENT_KEY);
+		String entityName = propertiesHolder
+				.getString(ENTITY_NAME_ARGUMENT_KEY);
+		JSONObject entity = propertiesHolder
+				.getJSONObject(PROPERTY_VALUES_ARGUMENT_KEY);
 
 		Class<?> type = this.dynamicClassGenerator
 				.getClassForTypeName(entityName);
@@ -315,10 +369,12 @@ public class DataSyncPlugin extends CordovaPlugin {
 			InvocationTargetException, InstantiationException {
 
 		JSONObject propertiesHolder = args.getJSONObject(0);
-		
-		String entityName = propertiesHolder.getString(ENTITY_NAME_ARGUMENT_KEY);
-		JSONObject entity = propertiesHolder.getJSONObject(PROPERTY_VALUES_ARGUMENT_KEY);
-		
+
+		String entityName = propertiesHolder
+				.getString(ENTITY_NAME_ARGUMENT_KEY);
+		JSONObject entity = propertiesHolder
+				.getJSONObject(PROPERTY_VALUES_ARGUMENT_KEY);
+
 		Class<?> type = this.dynamicClassGenerator
 				.getClassForTypeName(entityName);
 
@@ -333,8 +389,10 @@ public class DataSyncPlugin extends CordovaPlugin {
 			NoSuchMethodException, InvocationTargetException {
 
 		JSONObject propertiesHolder = args.getJSONObject(0);
-		String entityName = propertiesHolder.getString(ENTITY_NAME_ARGUMENT_KEY);
-		JSONObject entity = propertiesHolder.getJSONObject(PROPERTY_VALUES_ARGUMENT_KEY);
+		String entityName = propertiesHolder
+				.getString(ENTITY_NAME_ARGUMENT_KEY);
+		JSONObject entity = propertiesHolder
+				.getJSONObject(PROPERTY_VALUES_ARGUMENT_KEY);
 
 		Class<?> type = this.dynamicClassGenerator
 				.getClassForTypeName(entityName);
