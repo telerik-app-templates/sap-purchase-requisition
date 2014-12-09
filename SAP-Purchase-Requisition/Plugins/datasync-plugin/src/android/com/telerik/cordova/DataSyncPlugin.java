@@ -9,6 +9,8 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
 import org.apache.cordova.PluginResult.Status;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaWebView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +56,7 @@ public class DataSyncPlugin extends CordovaPlugin {
 	}
 
 	@Override
-	protected void pluginInitialize() {
+	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 		// Init the dynamic class generator and pass it to the class generator
 		// engine.
 		DexMaker dexMaker = new DexMaker();
