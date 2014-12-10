@@ -31,20 +31,20 @@ app.WorkflowItem = (function () {
 
                     var poExpanded = e.items[0];
 
-                    dataSync.addObject({
-                        EntityName: 'PurchaseOrderExpanded',
-                        PropertyValues: {
-                            WorkitemID: poExpanded.WorkitemID,
-                            CreatedByID: poExpanded.CreatedByID,
-                            Value: poExpanded.Value
-                        }
-                    }, function success(s) {
-                        console.log("success adding object");
-                        console.log(s);
-                    }, function fail(f) {
-                        console.log("fail adding object");
-                        console.log(f);
-                    });
+                    //dataSync.addObject({
+                    //    EntityName: 'PurchaseOrderExpanded',
+                    //    PropertyValues: {
+                    //        WorkitemID: poExpanded.WorkitemID,
+                    //        CreatedByID: poExpanded.CreatedByID,
+                    //        Value: poExpanded.Value
+                    //    }
+                    //}, function success(s) {
+                    //    console.log("success adding object");
+                    //    console.log(s);
+                    //}, function fail(f) {
+                    //    console.log("fail adding object");
+                    //    console.log(f);
+                    //});
 
                     console.log("post add object");
                 } else {
@@ -68,6 +68,10 @@ app.WorkflowItem = (function () {
 
         var show = function () {
             currentItem = appSettings.selectedWorkItem;
+
+            if (currentItem = null) {
+                currentItem = localStorage.getItem("WI");
+            }
 
             var listView = $("#item-details-listview").data("kendoMobileListView");
             if (listView) {

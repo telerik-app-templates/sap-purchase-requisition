@@ -13,6 +13,10 @@
 
 <script type="text/x-kendo-template" id="workflowitemsTemplate">
     <div data-role="touch" data-bind="events : { tap : nav }"> 
-        <h2>${WorkitemID}</h2>
+        <h2>${CreatedByID}</h2> 
+        <div>
+            <span>${ItemDescriptions}</span>
+            <span style="float: right; position: absolute; right: 0px; margin-right: 1em;">${Value} ${Currency}</span>
+        </div>
     </div>
 </script>

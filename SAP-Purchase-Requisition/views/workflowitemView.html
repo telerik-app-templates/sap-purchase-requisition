@@ -12,11 +12,18 @@
 
     </ul>
 
-</div>
+</div> 
 
 <script type="text/x-kendo-template" id="workflowitemTemplate">
     <div data-role="touch"> 
-        <h2>${WorkitemID}</h2>
-        <span>${PrNumber}</span>
+        <h2>${CreatedByID}</h2>
+        <div>
+            <span>PR: </span>
+            <span style="clear: both; margin-left: 3em">${PrNumber}</span>
+        </div>
+        <div>
+            <span>Material: </span>
+            <span style="clear: both; margin-left: 3em">${Description}</span>
+        </div>
     </div>
 </script>

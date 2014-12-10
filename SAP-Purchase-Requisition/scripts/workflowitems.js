@@ -81,6 +81,7 @@ app.WorkflowItems = (function () {
             console.log(e.data);
             console.log(e.data.WorkitemID);
             appSettings.selectedWorkItem = e.data;
+            localStorage.setItem("WI", e.data);
             app.mobileApp.navigate("views/workflowitemView.html");
         };
 
