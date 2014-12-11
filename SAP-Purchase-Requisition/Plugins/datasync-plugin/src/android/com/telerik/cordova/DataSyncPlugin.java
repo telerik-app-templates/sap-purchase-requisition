@@ -79,7 +79,15 @@ public class DataSyncPlugin extends CordovaPlugin {
 		// TODO Auto-generated method stub
  		this.callbackContext = callbackContext;
 		if (action.compareToIgnoreCase("createContext") == 0) {
-			this.createContext(args);
+            try {
+                this.createContext(args);
+    			PluginResult pResult = new PluginResult(Status.OK, "Context created successfully");
+				this.callbackContext.sendPluginResult(pResult);
+			} catch (Exception e) {
+				PluginResult pResult = new PluginResult(Status.ERROR,
+						e.getMessage());
+				this.callbackContext.sendPluginResult(pResult);
+			}
 		} else if (action.compareToIgnoreCase("saveChanges") == 0) {
 			try {
 				if (this.dataSyncContext.saveChanges()) {
