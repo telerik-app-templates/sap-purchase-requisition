@@ -57,25 +57,14 @@ public class DataSyncPlugin extends CordovaPlugin {
    
 	public DataSyncPlugin() {
 	}
-
        
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-		// Init the dynamic class generator and pass it to the class generator
-		// engine.
+		// Init the dynamic class generator and pass it to the class generator engine.
 
-        Log.d("plugintest","initialize called");
+        //call super's initialize to ensure compatiblity with older cordova versions
+        super.initialize(cordova, webView);
         
-        if ( cordova == null){
-            Log.d("plugintest","cordova is null");
-        }
-        
-        try{
-            this.cordova.getActivity();
-        } catch(Exception e){
-            Log.d("plugintest","getActivity failed");
-        }
-      
 		DexMaker dexMaker = new DexMaker();
 		this.dynamicClassGenerator = new TypeStructureGeneratorContext(
 				cordova.getActivity(), dexMaker);
@@ -227,16 +216,7 @@ public class DataSyncPlugin extends CordovaPlugin {
 				String localDatabaseName = options
 						.getString(LOCAL_DATABASE_PROPERTY_KEY);
 
-                if (this.cordova == null){
-					Log.d("plugintest", "cordova null");
-				}
-				if (this.cordova.getActivity() == null){
-					Log.d("plugintest", "getActivity returns null");
-				}
-				if (this.cordova.getActivity().getFilesDir() == null){
-					Log.d("plugintest", "getFilesDir null");
-				}
-				localDatabaseName = this.cordova.getActivity().getFilesDir()
+                localDatabaseName = this.cordova.getActivity().getFilesDir()
 						+ "/" + localDatabaseName;
 				DataSyncPolicy syncPolicy = new DataSyncPolicy();
 
