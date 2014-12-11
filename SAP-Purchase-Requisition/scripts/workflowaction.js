@@ -26,7 +26,7 @@ app.WorkflowAction = (function () {
             $("#workflow-action-title").val(actionText);
             $("#action-title").val(actionText);
 
-            dataSync.allObjects({ "EntityName": "PurchaseOrderExpanded" },
+            dataSync.allObjects({ EntityName: 'PurchaseOrderExpanded' },
                 function (aos) {
                     console.log("all object success");
                     console.log(aos);

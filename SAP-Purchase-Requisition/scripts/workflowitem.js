@@ -26,18 +26,15 @@ app.WorkflowItem = (function () {
             },
             change: function (e) {
                 if (e.items && e.items.length > 0) {
-                    console.log("details!");
-                    console.log(e.items);
-
                     var poExpanded = e.items[0];
 
                     dataSync.addObject({
-                        "EntityName": 'PurchaseOrderExpanded',
-                        "PropertyValues": {
-                            "WorkitemID": poExpanded.WorkitemID,
-                            "CreatedByID": poExpanded.CreatedByID,
-                            "Value": poExpanded.Value,
-                            "PrNumber": poExpanded.PrNumber
+                        EntityName: 'PurchaseOrderExpanded',
+                        PropertyValues: {
+                            WorkitemID: poExpanded.WorkitemID,
+                            CreatedByID: poExpanded.CreatedByID,
+                            Value: poExpanded.Value,
+                            PrNumber: poExpanded.PrNumber
                         }
                     }, function success(s) {
                         console.log("success adding object");

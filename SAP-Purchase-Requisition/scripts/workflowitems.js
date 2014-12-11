@@ -70,15 +70,14 @@ app.WorkflowItems = (function () {
 
         var init = function () {
             dataSync.registerClass({
-                "EntityName": 'PurchaseOrderExpanded',
-                "PrimaryKeyName": "WorkitemID",
-                "PrimaryKeyValue": 'WorkitemID',
-                "PrimaryKeyAutoIncrement": "false",
-                "PropertyValues": {
-                    "WorkitemID": 'String',
-                    "CreatedByID": 'String',
-                    "PrNumber": 'String',
-                    "Value": 'String'
+                EntityName: 'PurchaseOrderExpanded',
+                PrimaryKeyName: 'WorkitemID',
+                PrimaryKeyAutoIncrement: 'false',
+                PropertyValues: {
+                    WorkitemID: '@"NSString"',
+                    CreatedByID: '@"NSString"',
+                    PrNumber: '@"NSString"',
+                    Value: '@"NSString"'
                 }
             }, function success(rs) {
                 console.log("register success");
