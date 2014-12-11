@@ -23,51 +23,38 @@ app.Login = (function () {
             pWord = $("#loginPassword").val();
             console.log(uName);
 
-            console.log("login init2");
-            //dataSync.createOfflineContext({
-            //    ProviderName: "Everlive",
-            //    LocalDatabaseName: "poDB",
-            //    ApiKey: "fake",
-            //    Username: "fake",
-            //    Password: "fake",
-            //    ApiVersion: 1
-            //},
-            //    function success(s) {
-            //        console.log("createSuccess");
-            //        console.log(s);
-
-            //        // if works, add class
-            //        dataSync.registerClass({
-            //            EntityName: 'PurchaseOrderExpanded',
-            //            PrimaryKeyValue: 'WorkitemID',
-            //            PropertyValues: {
-            //                WorkitemID: 'String',
-            //                CreatedByID: 'String',
-            //                PrNumber: 'String',
-            //                Value: 'String'
-            //            }
-            //        }, function success(s) {
-            //            console.log(s);
-            //        }, function fail(f) {
-            //            console.log(f);
-            //        });
-            //    },
-            //    function fail(f) {
-            //        console.log("createFail");
-            //        console.log(f);
-            //    });
-
-            dataSync.createContext({
+            console.log("login init3");
+            dataSync.createOfflineContext({
                 "ProviderName": "Everlive",
                 "ProviderHostName": "http://api.everlive.com",
-                "ApiVersion": "v1",
-                "ApiKey": "Op8R4hd0NsHjUzmF",
-                "LocalDatabaseName": "Local_DB.db"
-            }, function success(s) {
-                console.log("good");
-            }, function failure(f) {
-                console.log(f);
-            });
+                "LocalDatabaseName": "poDB.db",
+                "ApiKey": "fake",
+                "Username": "fake",
+                "Password": "fake",
+                "ApiVersion": 1
+            },
+                function success(s) {
+                    console.log("createSuccess");
+                    console.log(s);
+                },
+                function fail(f) {
+                    console.log("createFail");
+                    console.log(f);
+                });
+
+            //dataSync.createContext({
+            //    "ProviderName": "Everlive",
+            //    "ProviderHostName": "http://api.everlive.com",
+            //    "ApiVersion": "v1",
+            //    "ApiKey": "Op8R4hd0NsHjUzmF",
+            //    "LocalDatabaseName": "Local_DB.db"
+            //}, function success(s) {
+            //    console.log("good");
+            //    console.log(s);
+            //}, function failure(f) {
+            //    console.log("fail");
+            //    console.log(f);
+            //});
 
             console.log("post dataSync register class");
 
