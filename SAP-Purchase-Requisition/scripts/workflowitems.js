@@ -69,7 +69,24 @@ app.WorkflowItems = (function () {
     var workflowitemsViewModel = (function () {
 
         var init = function () {
-
+            dataSync.registerClass({
+                "EntityName": 'PurchaseOrderExpanded',
+                "PrimaryKeyName": "WorkitemID",
+                "PrimaryKeyValue": 'WorkitemID',
+                "PrimaryKeyAutoIncrement": "false",
+                "PropertyValues": {
+                    "WorkitemID": 'String',
+                    "CreatedByID": 'String',
+                    "PrNumber": 'String',
+                    "Value": 'String'
+                }
+            }, function success(rs) {
+                console.log("register success");
+                console.log(rs);
+            }, function fail(rf) {
+                console.log("register fail");
+                console.log(rf);
+            });
         };
 
         var show = function () {
