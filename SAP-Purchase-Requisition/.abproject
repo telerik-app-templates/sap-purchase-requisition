@@ -5,7 +5,7 @@
   "AppIdentifier": "com.telerik.SAPPurchaseRequisition",
   "DisplayName": "SAP_Purchase_Requisition",
   "Author": "",
-  "Description": "",
+  "Description": "SAP_Purchase_Requisition",
   "BundleVersion": "1.0",
   "AndroidVersionCode": "1",
   "iOSDeviceFamily": [

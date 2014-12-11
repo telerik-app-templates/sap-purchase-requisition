@@ -57,17 +57,17 @@ app.Login = (function () {
             //        console.log(f);
             //    });
 
-            //dataSync.createContext({
-            //    "ProviderName": "Everlive",
-            //    "ProviderHostName": "http://api.everlive.com",
-            //    "ApiVersion": "v1",
-            //    "ApiKey": "Op8R4hd0NsHjUzmF",
-            //    "LocalDatabaseName": "Local_DB.db"
-            //}, function success(s) {
-            //    console.log("good");
-            //}, function failure(f) {
-            //    console.log(f);
-            //});
+            dataSync.createContext({
+                "ProviderName": "Everlive",
+                "ProviderHostName": "http://api.everlive.com",
+                "ApiVersion": "v1",
+                "ApiKey": "Op8R4hd0NsHjUzmF",
+                "LocalDatabaseName": "Local_DB.db"
+            }, function success(s) {
+                console.log("good");
+            }, function failure(f) {
+                console.log(f);
+            });
 
             console.log("post dataSync register class");
 

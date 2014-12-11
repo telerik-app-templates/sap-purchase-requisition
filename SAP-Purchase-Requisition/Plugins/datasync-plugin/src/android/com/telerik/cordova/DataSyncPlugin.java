@@ -15,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.google.dexmaker.DexMaker;
 import com.squareup.okhttp.internal.http.Policy;
 import com.telerik.android.common.serialization.JSONHelper;
@@ -52,16 +54,31 @@ public class DataSyncPlugin extends CordovaPlugin {
 	private static final String PROPERTY_VALUES_ARGUMENT_KEY = "PropertyValues";
 	private static final String PRIMARY_KEY_AUTO_INCREMENT = "PrimaryKeyAutoIncrement";
 
+   
 	public DataSyncPlugin() {
 	}
 
+       
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 		// Init the dynamic class generator and pass it to the class generator
 		// engine.
+
+        Log.d("plugintest","initialize called");
+        
+        if ( cordova == null){
+            Log.d("plugintest","cordova is null");
+        }
+        
+        try{
+            this.cordova.getActivity();
+        } catch(Exception e){
+            Log.d("plugintest","getActivity failed");
+        }
+      
 		DexMaker dexMaker = new DexMaker();
 		this.dynamicClassGenerator = new TypeStructureGeneratorContext(
-				this.cordova.getActivity(), dexMaker);
+				cordova.getActivity(), dexMaker);
 		// We do this to make sure any generated .jar files with dynamic types
 		// are preloaded to optimize performance.
 		this.dynamicClassGenerator.preLoadTypesCache();
@@ -209,6 +226,16 @@ public class DataSyncPlugin extends CordovaPlugin {
 				client = new EverliveCloudClient(hostName, apiVersion, apiKey);
 				String localDatabaseName = options
 						.getString(LOCAL_DATABASE_PROPERTY_KEY);
+
+                if (this.cordova == null){
+					Log.d("plugintest", "cordova null");
+				}
+				if (this.cordova.getActivity() == null){
+					Log.d("plugintest", "getActivity returns null");
+				}
+				if (this.cordova.getActivity().getFilesDir() == null){
+					Log.d("plugintest", "getFilesDir null");
+				}
 				localDatabaseName = this.cordova.getActivity().getFilesDir()
 						+ "/" + localDatabaseName;
 				DataSyncPolicy syncPolicy = new DataSyncPolicy();
