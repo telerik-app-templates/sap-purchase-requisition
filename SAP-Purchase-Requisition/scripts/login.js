@@ -87,7 +87,6 @@ app.Login = (function () {
                     }
                 ).then(
                     function (registration) {
-                        //_onDeviceIsRegistered();
                         registerInEverlive();
                         console.log(registration);
                     },
@@ -133,7 +132,7 @@ app.Login = (function () {
                 .updateRegistration({ SAPUsername: loginUserName })
                 .then(
                     _onDeviceRegistrationUpdated,
-                    function (err) {                        
+                    function (err) {
                         alert('UPDATE ERROR: ' + JSON.stringify(err));
                     }
                 );
@@ -168,26 +167,6 @@ app.Login = (function () {
 
             loginUserName = uName;
 
-            console.log("login init3");
-            dataSync.createOfflineContext({
-                ProviderName: "Everlive",
-                ProviderHostName: 'http://api.everlive.com',
-                LocalDatabaseName: 'poDB.db',
-                ApiKey: 'bsRwVIqZpsJyTcYR',
-                Username: 'andy',
-                Password: 'password1',
-                ApiVersion: 1
-            },
-                function success(s) {
-                    console.log("createSuccess");
-                    console.log(s);
-                    console.log(this);
-                },
-                function fail(f) {
-                    console.log("createFail");
-                    console.log(f);
-                });
-
             var authHeaderValue = "Basic " + $.base64.btoa(uName + ":" + pWord);
             $.ajax({
                 url: appSettings.endpoints.prApproval,
@@ -210,9 +189,31 @@ app.Login = (function () {
                 complete: function () {
                     if (authenticated) {
                         // login success, username is good, enable push and register  
-                        pushViewModel.enablePushNotifications();
+                        //pushViewModel.enablePushNotifications();
 
-                        app.mobileApp.navigate("views/workflowitemsView.html");
+                        dataSync.createOfflineContext({
+                            ProviderName: "Everlive",
+                            ProviderHostName: 'http://api.everlive.com',
+                            LocalDatabaseName: 'poDB',
+                            ApiKey: 'Osf4eyOPUXbcDUpS',
+                            Username: 'andy',
+                            Password: 'password1',
+                            ApiVersion: 1
+                            },
+                            function success(s) {
+                                console.log("createSuccess");
+                                console.log(s);
+
+                                // if context worked, we can navigate, since we need context
+                                // enabled for app functionality
+                                app.mobileApp.navigate("views/workflowitemsView.html");
+                            },
+                            function fail(f) {
+                                console.log("createFail");
+                                console.log(f);
+                            });
+
+                        //app.mobileApp.navigate("views/workflowitemsView.html");
                     }
                 }
             });

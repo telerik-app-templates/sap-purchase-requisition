@@ -39,6 +39,18 @@ app.WorkflowItem = (function () {
                     }, function success(s) {
                         console.log("success adding object");
                         console.log(s);
+
+                        dataSync.syncChanges(
+                            function suc(ss) {
+                                console.log("sync success");
+                                console.log(ss);
+                                console.log(dataSync);
+                            },
+                            function fai(sf) {
+                                console.log("sync fail");
+                                console.log(sf);
+                            });
+
                     }, function fail(f) {
                         console.log("fail adding object");
                         console.log(f);

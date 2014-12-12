@@ -67,7 +67,7 @@ app.WorkflowItems = (function () {
     }());
 
     var workflowitemsViewModel = (function () {
-
+         
         var init = function () {
             dataSync.registerClass({
                 EntityName: 'PurchaseOrderExpanded',
@@ -80,8 +80,17 @@ app.WorkflowItems = (function () {
                     Value: '@"NSString"'
                 }
             }, function success(rs) {
-                console.log("register success");
+                console.log("register success ");
                 console.log(rs);
+                dataSync.syncChanges(
+                    function suc(ss) {
+                        console.log("sync success");
+                        console.log(ss);
+                    },
+                    function fai(sf) {
+                        console.log("sync fail");
+                        console.log(sf);
+                    });
             }, function fail(rf) {
                 console.log("register fail");
                 console.log(rf);
