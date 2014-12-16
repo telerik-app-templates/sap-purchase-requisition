@@ -4,6 +4,38 @@ app.WorkflowItem = (function () {
     'use strict'
 
     var workflowitemModel = (function () {
+        var addDataObject = function (poExpanded) {
+            dataSync.addObject({
+                EntityName: 'PurchaseOrderExpanded',
+                PropertyValues: {
+                    WorkitemID: poExpanded.WorkitemID,
+                    CreatedByID: poExpanded.CreatedByID,
+                    Value: poExpanded.Value,
+                    PrNumber: poExpanded.PrNumber
+                }
+            }, function success(s) {
+                console.log("success adding object");
+                console.log(s);
+
+                dataSync.saveChanges(function saveSuccess(saveS) { console.log("save worked"); }, function saveFail(saveF) { console.log("save failed") });
+
+                //dataSync.syncChanges(
+                //    function suc(ss) {
+                //        console.log("sync success");
+                //        console.log(ss);
+                        
+                //    },
+                //    function fai(sf) {
+                //        console.log("sync fail");
+                //        console.log(sf);
+                //    });
+
+            }, function fail(f) {
+                console.log("fail adding object");
+                console.log(f);
+            });
+        };
+
         var wfiDataSource = new kendo.data.DataSource({
             type: 'odata',
             transport: {
@@ -28,35 +60,7 @@ app.WorkflowItem = (function () {
                 if (e.items && e.items.length > 0) {
                     var poExpanded = e.items[0];
 
-                    dataSync.addObject({
-                        EntityName: 'PurchaseOrderExpanded',
-                        PropertyValues: {
-                            WorkitemID: poExpanded.WorkitemID,
-                            CreatedByID: poExpanded.CreatedByID,
-                            Value: poExpanded.Value,
-                            PrNumber: poExpanded.PrNumber
-                        }
-                    }, function success(s) {
-                        console.log("success adding object");
-                        console.log(s);
-
-                        dataSync.syncChanges(
-                            function suc(ss) {
-                                console.log("sync success");
-                                console.log(ss);
-                                console.log(dataSync);
-                            },
-                            function fai(sf) {
-                                console.log("sync fail");
-                                console.log(sf);
-                            });
-
-                    }, function fail(f) {
-                        console.log("fail adding object");
-                        console.log(f);
-                    });
-
-                    console.log("post add object");
+                    addDataObject(poExpanded);
                 } else {
                     console.log("no details");
                 }

@@ -28,6 +28,10 @@ var cordova = require('cordova'),
         cordova.exec(success, fail, 'DataSync', 'syncModel',[ options ]);
       };
 
+      this.saveChanges = function(success, fail){          
+          cordova.exec(success, fail, 'DataSync', 'saveChages', []);
+      }
+
       this.registerClass = function (options, success, fail) {
         cordova.exec(success, fail, 'DataSync', 'registerClass', [options]);
       };

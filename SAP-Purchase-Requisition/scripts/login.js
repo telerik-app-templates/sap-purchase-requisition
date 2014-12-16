@@ -161,6 +161,30 @@ app.Login = (function () {
             $("#loginPassword").val(pWord);
         };
 
+        var createDataContext = function () {
+            dataSync.createOfflineContext({
+                ProviderName: "Everlive",
+                ProviderHostName: 'http://api.everlive.com',
+                LocalDatabaseName: 'poDB',
+                ApiKey: 'Osf4eyOPUXbcDUpS',
+                Username: 'andy',
+                Password: 'password1',
+                ApiVersion: 1
+            },
+            function success(s) {
+                console.log("createSuccess");
+                console.log(s);
+
+                // if context worked, we can navigate, since we need context
+                // enabled for app functionality
+                app.mobileApp.navigate("views/workflowitemsView.html");
+            },
+            function fail(f) {
+                console.log("createFail");
+                console.log(f);
+            });
+        };
+
         var login = function () {
             uName = $("#loginUsername").val();
             pWord = $("#loginPassword").val();
@@ -191,29 +215,9 @@ app.Login = (function () {
                         // login success, username is good, enable push and register  
                         //pushViewModel.enablePushNotifications();
 
-                        dataSync.createOfflineContext({
-                            ProviderName: "Everlive",
-                            ProviderHostName: 'http://api.everlive.com',
-                            LocalDatabaseName: 'poDB',
-                            ApiKey: 'Osf4eyOPUXbcDUpS',
-                            Username: 'andy',
-                            Password: 'password1',
-                            ApiVersion: 1
-                            },
-                            function success(s) {
-                                console.log("createSuccess");
-                                console.log(s);
+                        createDataContext();
 
-                                // if context worked, we can navigate, since we need context
-                                // enabled for app functionality
-                                app.mobileApp.navigate("views/workflowitemsView.html");
-                            },
-                            function fail(f) {
-                                console.log("createFail");
-                                console.log(f);
-                            });
-
-                        //app.mobileApp.navigate("views/workflowitemsView.html");
+                        app.mobileApp.navigate("views/workflowitemsView.html");
                     }
                 }
             });

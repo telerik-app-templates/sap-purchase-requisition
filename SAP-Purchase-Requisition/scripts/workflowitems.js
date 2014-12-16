@@ -68,7 +68,7 @@ app.WorkflowItems = (function () {
 
     var workflowitemsViewModel = (function () {
          
-        var init = function () {
+        var registerDataClass = function () {
             dataSync.registerClass({
                 EntityName: 'PurchaseOrderExpanded',
                 PrimaryKeyName: 'WorkitemID',
@@ -86,6 +86,7 @@ app.WorkflowItems = (function () {
                     function suc(ss) {
                         console.log("sync success");
                         console.log(ss);
+                        dataSync.saveChanges(function saveSuccess(saveS) { console.log("save worked"); }, function saveFail(saveF) { console.log("save failed") });
                     },
                     function fai(sf) {
                         console.log("sync fail");
@@ -95,6 +96,10 @@ app.WorkflowItems = (function () {
                 console.log("register fail");
                 console.log(rf);
             });
+        };
+
+        var init = function () {
+            registerDataClass();
         };
 
         var show = function () {
