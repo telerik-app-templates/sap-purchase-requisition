@@ -29,7 +29,7 @@ var cordova = require('cordova'),
       };
 
       this.saveChanges = function(success, fail){          
-          cordova.exec(success, fail, 'DataSync', 'saveChages', []);
+          cordova.exec(success, fail, 'DataSync', 'saveChanges', []);
       }
 
       this.registerClass = function (options, success, fail) {

@@ -74,10 +74,14 @@ app.WorkflowItems = (function () {
                 PrimaryKeyName: 'WorkitemID',
                 PrimaryKeyAutoIncrement: 'false',
                 PropertyValues: {
-                    WorkitemID: '@"NSString"',
-                    CreatedByID: '@"NSString"',
-                    PrNumber: '@"NSString"',
-                    Value: '@"NSString"'
+                    //WorkitemID: '@"NSString"',
+                    //CreatedByID: '@"NSString"',
+                    //PrNumber: '@"NSString"',
+                    //Value: '@"NSString"'
+                    WorkitemID: 'String',
+                    CreatedByID: 'String',
+                    PrNumber: 'String',
+                    Value: 'String'
                 }
             }, function success(rs) {
                 console.log("register success ");
@@ -86,7 +90,7 @@ app.WorkflowItems = (function () {
                     function suc(ss) {
                         console.log("sync success");
                         console.log(ss);
-                        dataSync.saveChanges(function saveSuccess(saveS) { console.log("save worked"); }, function saveFail(saveF) { console.log("save failed") });
+                        
                     },
                     function fai(sf) {
                         console.log("sync fail");
