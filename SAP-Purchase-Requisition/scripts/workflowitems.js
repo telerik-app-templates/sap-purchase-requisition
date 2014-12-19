@@ -67,43 +67,9 @@ app.WorkflowItems = (function () {
     }());
 
     var workflowitemsViewModel = (function () {
-         
-        var registerDataClass = function () {
-            dataSync.registerClass({
-                EntityName: 'PurchaseOrderExpanded',
-                PrimaryKeyName: 'WorkitemID',
-                PrimaryKeyAutoIncrement: 'false',
-                PropertyValues: {
-                    //WorkitemID: '@"NSString"',
-                    //CreatedByID: '@"NSString"',
-                    //PrNumber: '@"NSString"',
-                    //Value: '@"NSString"'
-                    WorkitemID: 'String',
-                    CreatedByID: 'String',
-                    PrNumber: 'String',
-                    Value: 'String'
-                }
-            }, function success(rs) {
-                console.log("register success ");
-                console.log(rs);
-                dataSync.syncChanges(
-                    function suc(ss) {
-                        console.log("sync success");
-                        console.log(ss);
-                        
-                    },
-                    function fai(sf) {
-                        console.log("sync fail");
-                        console.log(sf);
-                    });
-            }, function fail(rf) {
-                console.log("register fail");
-                console.log(rf);
-            });
-        };
 
         var init = function () {
-            registerDataClass();
+            
         };
 
         var show = function () {
@@ -113,9 +79,7 @@ app.WorkflowItems = (function () {
         var navToWorkItem = function (e) {
             console.log("Tapped item");
             console.log(e.data);
-            console.log(e.data.WorkitemID);
             appSettings.selectedWorkItem = e.data;
-            localStorage.setItem("WI", e.data);
             app.mobileApp.navigate("views/workflowitemView.html");
         };
 

@@ -161,6 +161,26 @@ app.Login = (function () {
             $("#loginPassword").val(pWord);
         };
 
+        var registerDataClass = function () {
+            dataSync.registerClass({
+                EntityName: 'PurchaseOrderExpanded',
+                PrimaryKeyName: 'WorkitemID',
+                PrimaryKeyAutoIncrement: 'false',
+                PropertyValues: {
+                    WorkitemID: 'String',
+                    CreatedByID: 'String',
+                    PrNumber: 'String',
+                    Value: 'String'
+                }
+            }, function success(rs) {
+                console.log("register success ");
+                console.log(rs);
+            }, function fail(rf) {
+                console.log("register fail");
+                console.log(rf);
+            });
+        };
+
         var createDataContext = function () {
             dataSync.createOfflineContext({
                 ProviderName: "Everlive",
@@ -175,8 +195,8 @@ app.Login = (function () {
                 console.log("createSuccess");
                 console.log(s);
 
-                // if context worked, we can navigate, since we need context
-                // enabled for app functionality
+                registerDataClass();
+
                 app.mobileApp.navigate("views/workflowitemsView.html");
             },
             function fail(f) {
@@ -212,12 +232,7 @@ app.Login = (function () {
                 },
                 complete: function () {
                     if (authenticated) {
-                        // login success, username is good, enable push and register  
-                        //pushViewModel.enablePushNotifications();
-
                         createDataContext();
-
-                        app.mobileApp.navigate("views/workflowitemsView.html");
                     }
                 }
             });

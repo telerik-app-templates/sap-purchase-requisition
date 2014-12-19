@@ -9,17 +9,17 @@ app.WorkflowAction = (function () {
             actionText = null,
             currentItem = null;
 
-        var getAllObjects = function () {
-            dataSync.allObjects({ EntityName: 'PurchaseOrderExpanded' },
-                function (aos) {
-                    console.log("all object success");
-                    console.log(aos);
-                },
-                function (aof) {
-                    console.log("all object fail");
-                    console.log(aof);
-                });
-        };
+        //var getAllObjects = function () {
+        //    dataSync.allObjects({ EntityName: 'PurchaseOrderExpanded' },
+        //        function (aos) {
+        //            console.log("all object success");
+        //            console.log(aos);
+        //        },
+        //        function (aof) {
+        //            console.log("all object fail");
+        //            console.log(aof);
+        //        });
+        //};
 
         var init = function (e) {
 
@@ -37,8 +37,6 @@ app.WorkflowAction = (function () {
 
             $("#workflow-action-title").val(actionText);
             $("#action-title").val(actionText);
-
-            getAllObjects();
         };
 
         var submit = function () {

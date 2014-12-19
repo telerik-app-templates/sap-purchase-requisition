@@ -6,12 +6,38 @@ app.WorkflowItem = (function () {
     var workflowitemModel = (function () {
         var poDetails;
 
-        var addDataObject = function (poExpanded) {
-            // debug/testing
-            // get all objects, if it exists then don't add
-            // there is a problem here, don't know what yet, working on it...
+        var addObjectIfNotFound = function () {
+            dataSync.allObjects({ EntityName: 'PurchaseOrderExpanded' },
+                        function (aos) {
+                            var found = false;
 
-            
+                            for (var iterator = 0; iterator < aos.length; iterator++) {
+                                if (aos[iterator].WorkitemID == poDetails.WorkitemID) {
+                                    found = true;
+                                }
+                            }
+
+                            if (!found) {
+                                dataSync.addObject({
+                                    EntityName: 'PurchaseOrderExpanded',
+                                    PropertyValues: {
+                                        WorkitemID: poDetails.WorkitemID,
+                                        CreatedByID: poDetails.CreatedByID,
+                                        Value: poDetails.Value,
+                                        PrNumber: poDetails.PrNumber
+                                    }
+                                }, function success(s) {
+                                    dataSync.saveChanges(
+                                        function saveSuccess(saveS) {},
+                                        function saveFail(saveF) {});
+                                }, function fail(f) { });
+                            }
+                        },
+                        function (aof) {
+                            console.log("all object fail");
+                            console.log(aof);
+                        }
+                    );
         };
 
         var wfiDataSource = new kendo.data.DataSource({
@@ -36,61 +62,11 @@ app.WorkflowItem = (function () {
             },
             change: function (e) {
                 if (e.items && e.items.length > 0) {
-                    // aDO keeps showing the first object I picked, doesn't get hit for subsequent call?
-                    console.log("details");
-                    console.log(e);
                     poDetails = e.items[0];
 
-                    dataSync.allObjects({ EntityName: 'PurchaseOrderExpanded' },
-                        function (aos) {
-                            console.log("all object success");
-                            console.log(aos);
-
-                            var found = false;
-
-                            for (var iterator = 0; iterator < aos.length; iterator++) {
-                                if (aos[iterator].WorkitemID == poDetails.WorkitemID) {
-                                    console.log("Found state !");
-                                    console.log("From sync: " + aos[iterator].WorkitemID);
-                                    console.log("From object: " + poDetails.WorkitemID);
-                                    found = true;
-                                }
-                            }
-
-                            if (!found) {
-                                dataSync.addObject({
-                                    EntityName: 'PurchaseOrderExpanded',
-                                    PropertyValues: {
-                                        WorkitemID: poDetails.WorkitemID,
-                                        CreatedByID: poDetails.CreatedByID,
-                                        Value: poDetails.Value,
-                                        PrNumber: poDetails.PrNumber
-                                    }
-                                }, function success(s) {
-                                    console.log("success adding object");
-                                    console.log(s);
-
-                                    dataSync.saveChanges(
-                                        function saveSuccess(saveS) { console.log("save worked"); },
-                                        function saveFail(saveF) { console.log("save failed"); console.log(saveF); });
-
-                                }, function fail(f) {
-                                    console.log("fail adding object");
-                                    console.log(f);
-                                });
-                            } else {
-                                console.log("Found, skip add.");
-                            }
-                        },
-                        function (aof) {
-                            console.log("all object fail");
-                            console.log(aof);
-                        }
-                    );
-
-                    console.log("post add object test");
+                    addObjectIfNotFound();
                 } else {
-                    console.log("no details");
+                    console.log("No details... this shouldn't happen.");
                 }
             }
         });
@@ -111,18 +87,11 @@ app.WorkflowItem = (function () {
         var show = function () {
             currentItem = appSettings.selectedWorkItem;
 
-            if (currentItem = null) {
-                currentItem = localStorage.getItem("WI");
-            }
-
             var listView = $("#item-details-listview").data("kendoMobileListView");
             if (listView) {
-                console.log("listview exists.");
-                //listView.setDataSource(workflowitemModel.workflowDetails);
                 workflowitemModel.workflowDetails.read();
             }
             else {
-                console.log("listview does not exist.");
                 $("#item-details-listview").kendoMobileListView({
                     style: "inset",
                     dataSource: workflowitemModel.workflowDetails,
