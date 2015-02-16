@@ -148,8 +148,8 @@ app.Login = (function () {
 
     var loginViewModel = (function () {
 
-        var uName = 'Manager',
-            pWord = 'manager',
+        var uName = 'Manager1',
+            pWord = 'manager1',
             authenticated = false;
 
         var init = function () {
@@ -182,7 +182,10 @@ app.Login = (function () {
         };
 
         var createDataContext = function () {
-            dataSync.createOfflineContext({
+            console.log(window);
+            console.log(dataSync);
+            console.log(JSON.stringify(dataSync));
+            dataSync.createContext({
                 ProviderName: "Everlive",
                 ProviderHostName: 'http://api.everlive.com',
                 LocalDatabaseName: 'poDB',
@@ -197,7 +200,7 @@ app.Login = (function () {
 
                 registerDataClass();
 
-                app.mobileApp.navigate("views/workflowitemsView.html");
+                //app.mobileApp.navigate("views/workflowitemsView.html");
             },
             function fail(f) {
                 console.log("createFail");
@@ -228,11 +231,13 @@ app.Login = (function () {
                     401: function (response) {
                         authenticated = false;
                         alert("Authentication failed");
+                        createDataContext();
                     }
                 },
                 complete: function () {
                     if (authenticated) {
-                        createDataContext();
+                        //createDataContext();
+                        app.mobileApp.navigate("views/workflowitemsView.html");
                     }
                 }
             });

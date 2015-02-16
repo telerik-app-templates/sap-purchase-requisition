@@ -41,3 +41,8 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Pesky directories for Github! >_>
+SAP-Purchase-Requisition/obj/
+SAP-Purchase-Requisition/Plugins/
+SAP-Purchase-Requisition/Plugins/datasync-plugin/
