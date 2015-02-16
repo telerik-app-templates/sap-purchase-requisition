@@ -46,3 +46,4 @@ Temporary Items
 SAP-Purchase-Requisition/obj/
 SAP-Purchase-Requisition/Plugins/
 SAP-Purchase-Requisition/Plugins/datasync-plugin/
+SAP-Purchase-Requisition/bin/*.*

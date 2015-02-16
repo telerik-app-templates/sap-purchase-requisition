@@ -3,8 +3,7 @@ var app = app || {};
 app.Login = (function () {
     'use strict'
 
-    var //baasKey = "IhUqTo3kHFwhCw8m",
-        baasKey = "yqPFi0boAHdvqEWg",
+    var baasKey = "yqPFi0boAHdvqEWg",
         baasScheme = 'http',
         deviceRegged = false,
         googleKey = "930700660577",
@@ -161,53 +160,6 @@ app.Login = (function () {
             $("#loginPassword").val(pWord);
         };
 
-        var registerDataClass = function () {
-            dataSync.registerClass({
-                EntityName: 'PurchaseOrderExpanded',
-                PrimaryKeyName: 'WorkitemID',
-                PrimaryKeyAutoIncrement: 'false',
-                PropertyValues: {
-                    WorkitemID: 'String',
-                    CreatedByID: 'String',
-                    PrNumber: 'String',
-                    Value: 'String'
-                }
-            }, function success(rs) {
-                console.log("register success ");
-                console.log(rs);
-            }, function fail(rf) {
-                console.log("register fail");
-                console.log(rf);
-            });
-        };
-
-        var createDataContext = function () {
-            console.log(window);
-            console.log(dataSync);
-            console.log(JSON.stringify(dataSync));
-            dataSync.createContext({
-                ProviderName: "Everlive",
-                ProviderHostName: 'http://api.everlive.com',
-                LocalDatabaseName: 'poDB',
-                ApiKey: 'Osf4eyOPUXbcDUpS',
-                Username: 'andy',
-                Password: 'password1',
-                ApiVersion: 1
-            },
-            function success(s) {
-                console.log("createSuccess");
-                console.log(s);
-
-                registerDataClass();
-
-                //app.mobileApp.navigate("views/workflowitemsView.html");
-            },
-            function fail(f) {
-                console.log("createFail");
-                console.log(f);
-            });
-        };
-
         var login = function () {
             uName = $("#loginUsername").val();
             pWord = $("#loginPassword").val();
@@ -231,12 +183,10 @@ app.Login = (function () {
                     401: function (response) {
                         authenticated = false;
                         alert("Authentication failed");
-                        createDataContext();
                     }
                 },
                 complete: function () {
                     if (authenticated) {
-                        //createDataContext();
                         app.mobileApp.navigate("views/workflowitemsView.html");
                     }
                 }

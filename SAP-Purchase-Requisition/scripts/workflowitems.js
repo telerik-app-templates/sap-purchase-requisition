@@ -77,8 +77,6 @@ app.WorkflowItems = (function () {
         };
 
         var navToWorkItem = function (e) {
-            console.log("Tapped item");
-            console.log(e.data);
             appSettings.selectedWorkItem = e.data;
             app.mobileApp.navigate("views/workflowitemView.html");
         };

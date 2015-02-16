@@ -9,18 +9,6 @@ app.WorkflowAction = (function () {
             actionText = null,
             currentItem = null;
 
-        //var getAllObjects = function () {
-        //    dataSync.allObjects({ EntityName: 'PurchaseOrderExpanded' },
-        //        function (aos) {
-        //            console.log("all object success");
-        //            console.log(aos);
-        //        },
-        //        function (aof) {
-        //            console.log("all object fail");
-        //            console.log(aof);
-        //        });
-        //};
-
         var init = function (e) {
 
         };
@@ -46,8 +34,6 @@ app.WorkflowAction = (function () {
             updateUrl = updateUrl.replace("#WorkitemID#", currentItem.WorkitemID);
             updateUrl = updateUrl.replace("#Comment#", $("#action-comment").val());
 
-            console.log(updateUrl);
-            
             app.mobileApp.showLoading();
 
             $.ajax({
@@ -60,7 +46,6 @@ app.WorkflowAction = (function () {
                 }
             }).done(function(data)
             {
-                console.log(data);
                 app.mobileApp.hideLoading();
                 app.mobileApp.navigate("#:back");
             });

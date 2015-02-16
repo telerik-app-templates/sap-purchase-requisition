@@ -6,40 +6,6 @@ app.WorkflowItem = (function () {
     var workflowitemModel = (function () {
         var poDetails;
 
-        var addObjectIfNotFound = function () {
-            dataSync.allObjects({ EntityName: 'PurchaseOrderExpanded' },
-                        function (aos) {
-                            var found = false;
-
-                            for (var iterator = 0; iterator < aos.length; iterator++) {
-                                if (aos[iterator].WorkitemID == poDetails.WorkitemID) {
-                                    found = true;
-                                }
-                            }
-
-                            if (!found) {
-                                dataSync.addObject({
-                                    EntityName: 'PurchaseOrderExpanded',
-                                    PropertyValues: {
-                                        WorkitemID: poDetails.WorkitemID,
-                                        CreatedByID: poDetails.CreatedByID,
-                                        Value: poDetails.Value,
-                                        PrNumber: poDetails.PrNumber
-                                    }
-                                }, function success(s) {
-                                    dataSync.saveChanges(
-                                        function saveSuccess(saveS) {},
-                                        function saveFail(saveF) {});
-                                }, function fail(f) { });
-                            }
-                        },
-                        function (aof) {
-                            console.log("all object fail");
-                            console.log(aof);
-                        }
-                    );
-        };
-
         var wfiDataSource = new kendo.data.DataSource({
             type: 'odata',
             transport: {
@@ -63,8 +29,6 @@ app.WorkflowItem = (function () {
             change: function (e) {
                 if (e.items && e.items.length > 0) {
                     poDetails = e.items[0];
-
-                    addObjectIfNotFound();
                 } else {
                     console.log("No details... this shouldn't happen.");
                 }
