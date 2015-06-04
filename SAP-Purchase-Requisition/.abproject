@@ -17,11 +17,13 @@
   "WP8Publisher": "",
   "WP8Capabilities": [],
   "WP8Requirements": [],
-  "WP8PublisherID": "{ffc20ac2-586e-4416-b07e-85afeb7962f2}",
-  "WP8ProductID": "{8651b32e-788e-4c0f-90e3-f680f86fd715}",
+  "WP8PublisherID": "{e94bfe9a-1a2e-41c7-b439-9b2e277f7231}",
+  "WP8ProductID": "{b24ad5bf-0012-4566-9bb6-89086e3ba522}",
   "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
   "FrameworkVersion": "3.5.0",
   "CorePlugins": [
+    "com.phonegap.plugins.PushPlugin",
+    "com.telerik.plugin.eqatecanalytics",
     "org.apache.cordova.battery-status",
     "org.apache.cordova.camera",
     "org.apache.cordova.console",
@@ -74,6 +76,7 @@
     "ID_RESOLUTION_HD720P"
   ],
   "Framework": "Cordova",
+  "CordovaPluginVariables": {},
   "WP8WindowsPublisherName": "CN=Telerik",
   "WP8PackageIdentityName": "1234Telerik.com.telerik.SAPPurchaseRequisition"
 }
