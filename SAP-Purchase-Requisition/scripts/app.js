@@ -34,6 +34,8 @@ var app = (function (win) {
         document.addEventListener('backbutton', onBackKeyDown, false);
         
         analytics.Start();
+        
+		feedback.initialize('04280780-0aec-11e5-a53e-7329f840ce50');
     };
 
     // Handle "deviceready" event

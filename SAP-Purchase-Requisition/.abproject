@@ -5,7 +5,7 @@
   "AppIdentifier": "com.telerik.SAPPurchaseRequisition",
   "DisplayName": "SAP_Purchase_Requisition",
   "Author": "",
-  "Description": "SAP_Purchase_Requisition",
+  "Description": "SAP Purchase Requisition",
   "BundleVersion": "1.0",
   "AndroidVersionCode": "1",
   "iOSDeviceFamily": [
@@ -20,9 +20,9 @@
   "WP8PublisherID": "{e94bfe9a-1a2e-41c7-b439-9b2e277f7231}",
   "WP8ProductID": "{b24ad5bf-0012-4566-9bb6-89086e3ba522}",
   "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
-  "FrameworkVersion": "3.5.0",
+  "FrameworkVersion": "3.7.0",
   "CorePlugins": [
-    "com.phonegap.plugins.PushPlugin",
+    "com.telerik.feedback",
     "com.telerik.plugin.eqatecanalytics",
     "org.apache.cordova.battery-status",
     "org.apache.cordova.camera",
