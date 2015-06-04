@@ -34,8 +34,6 @@ app.WorkflowAction = (function () {
             updateUrl = updateUrl.replace("#WorkitemID#", currentItem.WorkitemID);
             updateUrl = updateUrl.replace("#Comment#", $("#action-comment").val());
 
-            console.log(updateUrl);
-            
             app.mobileApp.showLoading();
 
             $.ajax({
@@ -48,7 +46,6 @@ app.WorkflowAction = (function () {
                 }
             }).done(function(data)
             {
-                console.log(data);
                 app.mobileApp.hideLoading();
                 appSettings.itemUpdated = true;
                 app.mobileApp.navigate("views/workflowitemsView.html");
