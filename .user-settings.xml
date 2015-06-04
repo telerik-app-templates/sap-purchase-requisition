@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<JustDevelopSettings>
+  <CodesigningIdentitySettings xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <MobileProjectCodesigningIdentities xmlns:d2p1="http://schemas.datacontract.org/2004/07/Telerik.BlackDragon.Common.Data">
+      <d2p1:Project>
+        <d2p1:Identifier>SAP Purchase Requisition Demo\SAP-Purchase-Requisition</d2p1:Identifier>
+        <d2p1:CodesigningIdentities>
+          <d2p1:Identity>
+            <d2p1:Platform>iOS</d2p1:Platform>
+            <d2p1:Alias>iPhone Distribution Telerik AD (R58QAA9NR8)</d2p1:Alias>
+          </d2p1:Identity>
+        </d2p1:CodesigningIdentities>
+      </d2p1:Project>
+    </MobileProjectCodesigningIdentities>
+  </CodesigningIdentitySettings>
+  <MobileProjectProvisionSettings xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <MobileProjectProvisionNames xmlns:d2p1="http://schemas.datacontract.org/2004/07/Telerik.BlackDragon.Common.Data">
+      <d2p1:Project>
+        <d2p1:Identifier>SAP Purchase Requisition Demo\SAP-Purchase-Requisition</d2p1:Identifier>
+        <d2p1:MobileProvision>4446a45e-5bbf-498c-aa3f-c192f6aa14fb</d2p1:MobileProvision>
+      </d2p1:Project>
+    </MobileProjectProvisionNames>
+  </MobileProjectProvisionSettings>
+  <SolutionSettings xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Telerik.BlackDragon.Client.Modules.Settings">
+    <BuildConfiguration>Debug</BuildConfiguration>
+    <StartUpProject>SAP-Purchase-Requisition</StartUpProject>
+  </SolutionSettings>
+</JustDevelopSettings>

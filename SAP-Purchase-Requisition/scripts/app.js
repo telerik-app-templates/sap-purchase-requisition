@@ -32,6 +32,8 @@ var app = (function (win) {
     var onDeviceReady = function () {
         // Handle "backbutton" event
         document.addEventListener('backbutton', onBackKeyDown, false);
+        
+        analytics.Start();
     };
 
     // Handle "deviceready" event
