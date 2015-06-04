@@ -40,6 +40,8 @@ app.WorkflowItem = (function () {
         };
 
         var beforeShow = function () {
+            analytics.Monitor().TrackFeatureStart("WorkflowItem.View");
+            
             currentItem = appSettings.selectedWorkItem;
             $("#notes-div").hide();
 
@@ -81,6 +83,10 @@ app.WorkflowItem = (function () {
             ds.read();
         };
 
+        var hide = function () {
+            analytics.Monitor().TrackFeatureStop("WorkflowItem.View");
+        };
+        
         var approve = function () {
             var url = "views/workflowActionView.html?action=001";
             app.mobileApp.navigate(url);
@@ -96,7 +102,8 @@ app.WorkflowItem = (function () {
             beforeShow: beforeShow,
             workflowDetails: workflowitemModel.workflowDetails,
             approve: approve,
-            reject: reject
+            reject: reject,
+            hide: hide
         }
     }());
 

@@ -51,11 +51,14 @@ var app = (function (win) {
         statusBarStyle: statusBarStyle,
         skin: 'flat'
     });
+    
+    var el = new Everlive(appSettings.elKey);
 
     return {
         showAlert: showAlert,
         showError: showError,
-        mobileApp: mobileApp
+        mobileApp: mobileApp,
+        everlive: el
     };
 
 }(window));

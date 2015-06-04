@@ -8,6 +8,7 @@ var appSettings = {
     },
 
     selectedWorkItem: null,
-    itemUpdated: true
+    itemUpdated: true,
+    elKey: 'yqPFi0boAHdvqEWg'
 
 };

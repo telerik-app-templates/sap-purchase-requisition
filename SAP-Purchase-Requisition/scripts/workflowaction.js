@@ -14,6 +14,8 @@ app.WorkflowAction = (function () {
         };
 
         var show = function ( e ) {
+            analytics.Monitor().TrackFeatureStart("WorkflowAction.Submit");
+            
             action = e.sender.params.action;
             currentItem = appSettings.selectedWorkItem;
 
@@ -53,6 +55,10 @@ app.WorkflowAction = (function () {
             
         };
 
+        var hide = function () {
+            analytics.Monitor().TrackFeatureStop("WorkflowAction.Submit");
+        };
+        
         var cancel = function () {
             app.mobileApp.navigate("#:back");
         };
@@ -61,7 +67,8 @@ app.WorkflowAction = (function () {
             init: init,
             show: show,
             submit: submit,
-            cancel: cancel
+            cancel: cancel,
+            hide: hide
         }
     }());
 

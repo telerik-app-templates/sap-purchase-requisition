@@ -1,4 +1,7 @@
-<div data-role="view" id="workflow-item-view" data-model="app.WorkflowItem" data-init="app.WorkflowItem.init" data-before-show="app.WorkflowItem.beforeShow">
+<div data-role="view" id="workflow-item-view" data-model="app.WorkflowItem" 
+     data-init="app.WorkflowItem.init" 
+     data-before-show="app.WorkflowItem.beforeShow"
+     data-hide="app.WorkflowItem.hide">
     <header data-role="header">
         <div data-role="navbar">
             WorkItem
@@ -7,10 +10,6 @@
             <a data-role="button" data-align="right" data-icon="reply" data-bind="events: { click: reject }"></a>
         </div>
     </header>
-
-<!--    <ul data-role="listview" id="item-details-listview" data-style="inset" data-bind="source: workflowDetails" data-template="workflowitemTemplate">
-
-    </ul>-->
 
     <div id="workflow-item-div">
         <h2 data-bind="text: CreatedByID"></h2>
@@ -51,18 +50,3 @@
     <span class="reqDetail">${CreatedByID}</span><br/>
     <span class="genericLabel">${Text}</span>
 </script>
-
-<!--
-    <div>
-        <span class="reqLabel"></span><br />
-        <span class="reqDetail" data-bind="text: "></span>
-    </div>
-
-    <div data-role="touch" data-bind="events : { tap : nav }"> 
-        <h3>${CreatedByName}</h3>
-        <div>
-            <span>${Value} ${Currency}</span>
-            <span style="position: absolute; right: 12px">${ItemDescriptions}</span>
-        </div>
-    </div>
--->
