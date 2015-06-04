@@ -3,8 +3,6 @@ var app = (function (win) {
 
     // Global error handling
     var showAlert = function (message, title, callback) {
-        console.log(message);
-        console.log(navigator);
         navigator.notification.alert(message, callback || function () {}, title, 'OK');
     };
 

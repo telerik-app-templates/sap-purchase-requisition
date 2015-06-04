@@ -83,6 +83,7 @@ app.WorkflowItems = (function () {
         };
 
         var afterShow = function () {
+            /*
             var dataSource = workflowitemsModel.workflowitems;
             appSettings.itemUpdated = false;
             dataSource.read();
@@ -90,6 +91,7 @@ app.WorkflowItems = (function () {
             dataSource.bind("change", function () {
                 navbar.title("(" + this.data().length + ")");
             });
+            */
         };
 
         var navToWorkItem = function (e) {

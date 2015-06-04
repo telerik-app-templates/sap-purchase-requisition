@@ -4,6 +4,7 @@
     <title></title>
     <meta charset="utf-8" />
     <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+    <link href="styles/main.css" rel="stylesheet" />
 
     <script src="cordova.js"></script>
     <script src="kendo/js/jquery.min.js"></script>
@@ -15,6 +16,7 @@
     <script src="scripts/analytics.js"></script>
     <script src="scripts/settings.js"></script>
     <script src="scripts/app.js"></script>
+    <script src="scripts/signup.js"></script>
     <script src="scripts/login.js"></script>
     <script src="scripts/workflowitems.js"></script>
     <script src="scripts/workflowitem.js"></script>
@@ -22,13 +24,8 @@
 
 </head>
 <body id="reqApp">
-    <div id="homeView" data-role="view" data-model="app.Login" data-show="app.Login.show">
-        <header data-role="header">
-            <div data-role="navbar">
-                Purchase Requisition
-            </div>
-        </header>
-
+    <div id="homeView" class="welcome-scrn form-view" data-role="view" data-model="app.Login" data-show="app.Login.show">        
+		<h1 class="app-name center-text" style="text-align:center">SAP<small>Purchase Requisition</small></h1>
         <form id="login-form">
             <ul data-role="listview" data-style="inset">
                 <li class="username">
@@ -40,11 +37,17 @@
             </ul>
         </form>
 
-        <a data-role="button" data-bind="events: { click: login }">Login</a>
-        
-        <a data-role="button" href="ui/login/signupView.html">Not registered for mobile access?</a>
+        <ol class="group-wrp">
+            <li>
+                <span id="login" data-role="touch" data-bind="events: { tap: login }">
+                    <a data-role="button" class="btn btn-login">Login</a>
+                </span>
+            </li>
 
+            <li class="signup">
+                <a data-role="button" href="views/signupView.html" class="btn-signup">Not registered for mobile access?</a>
+            </li>
+        </ol>
     </div>
-
 </body>
 </html>
