@@ -22,10 +22,9 @@ app.Login = (function () {
             var username = $("#loginUsername").val();
             var password = $("#loginPassword").val();
 
-            // Authenticate using the username and password
             app.everlive.Users.login(username, password)
             .then(function (r) {
-                //console.log(r);
+                // do nothing for 'complete', we handle Success and Fail results
             })
             .then(function () {
                 app.everlive.Users.currentUser()

@@ -3,31 +3,53 @@ var app = app || {};
 app.WorkflowItem = (function () {
     'use strict'
 
-    var workflowitemModel = (function () {
-        var wfiDataSource = new kendo.data.DataSource({
-            type: 'odata',
-            transport: {
-                read: {
-                    url: function () {
-                        var currentWI = appSettings.selectedWorkItem;
-                        var readUrl = appSettings.endpoints.prItemDetails.replace("#RequisitonId#", currentWI.WorkitemID);
-                        return readUrl;
-                    },
-                    dataType: 'json'
+    var dataModel = (function () {
+        var widModel = {
+            id: Everlive.idField,
+            fields: {
+                workItemId: {
+                    field: 'WorkItemId',
+                    defaultValue: ''                    
                 },
-                parameterMap: function (options, type) {
-                    var paramMap = kendo.data.transports.odata.parameterMap(options);
-
-                    delete paramMap.$inlinecount; // <-- remove inlinecount parameter.
-                    //delete paramMap.$format; // <-- remove format parameter.
-
-                    return paramMap;
-                }
+                deliveryPlant: {
+                    field: 'DeliveryPlant',
+                    defaultValue: ''                    
+                },
+                deliveryState: {
+                    field: 'DeliveryState',
+                    defaultValue: ''
+                },
+                description: {
+                    field: 'Description',
+                    defaultValue: ''                    
+                },
+                notes: {
+                    field: 'Notes',
+                    defaultValue: ''                    
+                },
+                quantity: {
+                    field: 'Quantity',
+                    defaultValue: ''                    
+                },
+                unitPrice: {
+                    field: 'UnitPrice',
+                    defaultValue: ''                    
+                }                
+            }
+        };
+        
+        var widDataSource = new kendo.data.DataSource({
+           type: 'everlive',
+            schema: {
+                model: widModel
+            },
+            transport: {
+                typeName: 'WorkItemDetails'
             }
         });
-
+        
         return {
-            workflowDetails: wfiDataSource
+            workItems: widDataSource
         }
     }());
 
@@ -35,7 +57,7 @@ app.WorkflowItem = (function () {
 
         var currentItem = null;
 
-        var init = function ( e ) {            
+        var init = function (e) {            
 
         };
 
