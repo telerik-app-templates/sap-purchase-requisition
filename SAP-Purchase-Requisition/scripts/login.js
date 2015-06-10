@@ -5,7 +5,7 @@ app.Login = (function () {
 
     var loginViewModel = (function () {
 
-        var uName = 'demo',
+        var uName = 'manager',
             pWord = 'demo',
             authenticated = false;
 
@@ -28,7 +28,13 @@ app.Login = (function () {
                 //console.log(r);
             })
             .then(function () {
-                app.mobileApp.navigate('views/workflowitemsView.html');
+                app.everlive.Users.currentUser()
+                	.then(function (userData) {
+                    	appSettings.currentUser = userData.result;
+                    	app.mobileApp.navigate('views/workflowitemsView.html');                    	
+                	}, function (userError) {
+                    	app.showError(JSON.stringify(userError));
+                });                
             })
             .then(null,
                   function (err) {
