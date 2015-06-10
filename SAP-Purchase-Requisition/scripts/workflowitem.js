@@ -67,32 +67,32 @@ app.WorkflowItem = (function () {
             currentItem = appSettings.selectedWorkItem;
             $("#notes-div").hide();
 
-            var ds = workflowitemModel.workflowDetails;
+            //var ds = workflowitemModel.workflowDetails;
+            var ds = dataModel.workItems;
+            ds.filter({
+                field: "workItemId", 
+                operator: "eq",
+                value: currentItem.workItemId
+            });
 
             ds.bind("change", function (e) {
                 if (e.items && e.items.length > 0) {
                     var obs = e.items[0];
 
-                    // Formatted fields
-                    obs.FormattedPrice = function () {
-                        return obs.Value + " / " + obs.Quantity;
-                    };
-                    obs.MaterialGroup = function () {
-                        return obs.ProductDetails.MaterialGroupDescription + " (" + obs.ProductDetails.MaterialGroup + ")";
-                    }
-
                     // Bind details form
                     kendo.bind($("#workflow-item-div"), obs);
 
+                    var result = JSON.parse(obs.notes.result);
+                    console.log(result);
+                    console.log(result.notes.length);
+                    
                     // Bind notes if any
-                    if (obs.NumberOfNotes > 0) {
+                    if (result.notes.length > 0) {
                         $("#notes-div").show();
-
-                        console.log(obs.Notes.results);
 
                         $("#notes-list").kendoMobileListView({
                             style: "inset",
-                            dataSource: obs.Notes.results,
+                            dataSource: result.notes,
                             template: $("#notes-item-template").text()
                         });
 
@@ -122,7 +122,7 @@ app.WorkflowItem = (function () {
         return {
             init: init,
             beforeShow: beforeShow,
-            workflowDetails: workflowitemModel.workflowDetails,
+            //workflowDetails: workflowitemModel.workflowDetails,
             approve: approve,
             reject: reject,
             hide: hide
