@@ -13,7 +13,7 @@ app.WorkflowAction = (function () {
 
         };
 
-        var show = function ( e ) {
+        var show = function (e) {            
             analytics.Monitor().TrackFeatureStart("WorkflowAction.Submit");
             
             action = e.sender.params.action;
@@ -25,37 +25,40 @@ app.WorkflowAction = (function () {
                 actionText = "Reject";
             }
 
-            $("#workflow-action-title").val(actionText);
-            $("#action-title").val(actionText);
+            var navbar = app.mobileApp.view()
+                .header
+				.find(".km-navbar")
+   				.data("kendoMobileNavBar");
+
+            navbar.centerElement[0].innerText = actionText;
         };
 
         var submit = function () {
-            var updateUrl = appSettings.endpoints.prWorkflow;
+            var url = 'https://api.everlive.com/v1/yqPFi0boAHdvqEWg/Functions/ApplyDecision';
+            var queryString = "?action=" + action + "&wid=" + currentItem.workItemId + "&comment=" + $("#action-comment").val() + "&user=" + appSettings.currentUser.Username;
             
-            updateUrl = updateUrl.replace("#DecisionKey#", action);
-            updateUrl = updateUrl.replace("#WorkitemID#", currentItem.WorkitemID);
-            updateUrl = updateUrl.replace("#Comment#", $("#action-comment").val());
-
-            app.mobileApp.showLoading();
-
+            var cloudCall = url + queryString;
+            
             $.ajax({
-                type:"POST",
-                url: updateUrl,
-                beforeSend: function(xhr)
-                {
-                    xhr.setRequestHeader("Authorization",localStorage.getItem("authHeaderValue"));
-                    xhr.setRequestHeader("x-csrf-token",localStorage.getItem("token"));
+                type: 'GET',
+                url: cloudCall
+            }).done(function(data) {
+                var retObj = JSON.parse(data);
+                var returnType = retObj.type;
+                
+                if (returnType == "Error") {
+                    app.showError(retObj.message);
+                } else if (returnType == "Success" || returnType == "Reject") {
+                    app.showAlert(retObj.message, returnType, null);
+                    app.mobileApp.navigate("views/workflowitemsView.html");
+                } else {
+                    app.showError("Unknown response. Check with your admin.");
                 }
-            }).done(function(data)
-            {
-                app.mobileApp.hideLoading();
-                appSettings.itemUpdated = true;
-                app.mobileApp.navigate("views/workflowitemsView.html");
             });
-            
         };
 
         var hide = function () {
+            $("#action-comment").val("");
             analytics.Monitor().TrackFeatureStop("WorkflowAction.Submit");
         };
         

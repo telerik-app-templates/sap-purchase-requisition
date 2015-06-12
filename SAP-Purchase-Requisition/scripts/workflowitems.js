@@ -56,24 +56,31 @@ app.WorkflowItems = (function () {
     var workflowitemsViewModel = (function () {
 
         var navbar;
+        var isInit = false;
 
         var init = function (e) {
             navbar = e.view.header.find('.km-navbar').data('kendoMobileNavBar');
         };
 
         var show = function (e) {
-            dataModel.workItems.filter({
-                field: "approvalLevel", 
-                operator: "eq",
-                value: appSettings.currentUser.Role
-            });
-            
-			$("#workflow-items-list").kendoMobileListView({
-                dataSource: dataModel.workItems,
-                style: 'inset',
-                template: kendo.template($("#workflowitemsTemplate").html()),
-                click: navToWorkItem
-            })
+            if (!isInit) {
+                dataModel.workItems.filter({
+                    field: "approvalLevel", 
+                    operator: "eq",
+                    value: appSettings.currentUser.Role
+                });
+
+                $("#workflow-items-list").kendoMobileListView({
+                    dataSource: dataModel.workItems,
+                    style: 'inset',
+                    template: kendo.template($("#workflowitemsTemplate").html()),
+                    click: navToWorkItem
+                });
+                
+                isInit = true;
+            } else {
+                dataModel.workItems.read();
+            }
         };
 
         var navToWorkItem = function (e) {
@@ -92,89 +99,3 @@ app.WorkflowItems = (function () {
     return workflowitemsViewModel;
 
 }());
-
-
-
-            /*			afterShow
-            var dataSource = workflowitemsModel.workflowitems;
-            appSettings.itemUpdated = false;
-            dataSource.read();
-                
-            dataSource.bind("change", function () {
-                navbar.title("(" + this.data().length + ")");
-            });
-            */
-
-
-
-    /*
-    var workflowitemsModel = (function () {
-
-        var wfiModel = {
-            id: 'WorkitemID',
-            fields: {
-                createdAt: {
-                    field: 'WiCreatedAt',
-                    type: 'date'
-                },
-                createdBy: {
-                    field: 'CreatedByName'
-                },
-                value: {
-                    field: 'Value'
-                },
-                currency: {
-                    field: 'Currency'
-                },
-                supplier: {
-                    field: 'SupplierName'
-                },
-                description: {
-                    field: 'ItemDescriptions'
-                },
-                ponumber: {
-                    field: 'PoNumber'
-                }
-            }
-        };
-
-        var wfiDataSource = new kendo.data.DataSource({
-            type: 'odata',
-            scheme: {
-                model: wfiModel,
-                data: function (response) {
-                    console.log(response);
-                    return response.d.results;
-                }
-            },
-            transport: {
-                read: {
-                    url: appSettings.endpoints.prWorkflowItems,
-                    dataType: 'json',
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader("Authorization", localStorage.getItem("authHeaderValue"));
-                        xhr.setRequestHeader("x-csrf-token", "fetch");
-                    },
-                    complete: function (xhr) {
-                        localStorage.setItem("token", xhr.getResponseHeader("X-CSRF-Token"));
-                    }
-                },
-                parameterMap: function (options, type) {
-                    var paramMap = kendo.data.transports.odata.parameterMap(options);
-
-                    delete paramMap.$inlinecount; // <-- remove inlinecount parameter.
-                    //delete paramMap.$format; // <-- remove format parameter.
-
-                    return paramMap;
-                }
-            },
-            sort: {
-                field: 'CreatedAt',
-                dir: 'desc'
-            }
-        });
-
-        return {
-            workflowitems: wfiDataSource
-        }
-    }());*/

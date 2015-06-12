@@ -67,7 +67,6 @@ app.WorkflowItem = (function () {
             currentItem = appSettings.selectedWorkItem;
             $("#notes-div").hide();
 
-            //var ds = workflowitemModel.workflowDetails;
             var ds = dataModel.workItems;
             ds.filter({
                 field: "workItemId", 
@@ -83,8 +82,6 @@ app.WorkflowItem = (function () {
                     kendo.bind($("#workflow-item-div"), obs);
 
                     var result = JSON.parse(obs.notes.result);
-                    console.log(result);
-                    console.log(result.notes.length);
                     
                     // Bind notes if any
                     if (result.notes.length > 0) {
@@ -97,9 +94,7 @@ app.WorkflowItem = (function () {
                         });
 
                     } 
-                } else {
-                    console.log("no details!");
-                }
+                } 
             });
 
             ds.read();
@@ -122,7 +117,6 @@ app.WorkflowItem = (function () {
         return {
             init: init,
             beforeShow: beforeShow,
-            //workflowDetails: workflowitemModel.workflowDetails,
             approve: approve,
             reject: reject,
             hide: hide

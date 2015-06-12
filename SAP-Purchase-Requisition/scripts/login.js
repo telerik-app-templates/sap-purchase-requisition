@@ -30,6 +30,7 @@ app.Login = (function () {
                 app.everlive.Users.currentUser()
                 	.then(function (userData) {
                     	appSettings.currentUser = userData.result;
+                    	console.log(userData);
                     	app.mobileApp.navigate('views/workflowitemsView.html');                    	
                 	}, function (userError) {
                     	app.showError(JSON.stringify(userError));
