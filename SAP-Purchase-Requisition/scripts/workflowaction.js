@@ -13,7 +13,7 @@ app.WorkflowAction = (function () {
 
         };
 
-        var show = function (e) {            
+        var show = function (e) {
             analytics.Monitor().TrackFeatureStart("WorkflowAction.Submit");
             
             action = e.sender.params.action;
