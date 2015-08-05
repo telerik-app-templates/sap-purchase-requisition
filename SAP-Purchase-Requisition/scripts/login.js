@@ -19,6 +19,7 @@ app.Login = (function () {
         };
 
         var login = function () {
+            app.mobileApp.showLoading();
             var username = $("#loginUsername").val();
             var password = $("#loginPassword").val();
 
@@ -30,16 +31,18 @@ app.Login = (function () {
                 app.everlive.Users.currentUser()
                 	.then(function (userData) {
                     	appSettings.currentUser = userData.result;
-                    	console.log(userData);
-                    	app.mobileApp.navigate('views/workflowitemsView.html');                    	
+                    	app.mobileApp.navigate('views/workflowitemsView.html');
+                    	app.mobileApp.hideLoading();
                 	}, function (userError) {
                     	app.showError(JSON.stringify(userError));
+                    	app.mobileApp.hideLoading();
                 });                
             })
             .then(null,
-                  function (err) {
-                      app.showError(err.message);
-                  }
+				function (err) {
+                    app.showError(err.message);
+                	app.mobileApp.hideLoading();
+				}
             );
         };
 

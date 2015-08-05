@@ -11,13 +11,18 @@
             <h2>
                 Purchase Requisition
             </h2>
+            <p>
+                Please enter a comment to be retained along with the approval chain process.
+            </p>
         </div>
         <ul data-role="listview" data-style="inset">
             <li>
                 <textarea style="height: 120px" rows="10" id="action-comment" placeholder="(Optional Comment)"></textarea>
             </li>
         </ul>
-        <a data-role="button" data-bind="events: { click: submit }">Submit</a>
-        <a data-role="button" data-bind="events: { click: cancel }">Cancel</a>
+        <div align="center">
+            <a data-role="button" data-bind="events: { click: submit }">Submit</a>
+        	<a data-role="button" data-bind="events: { click: cancel }">Cancel</a>
+        </div>
     </div>
 </div>

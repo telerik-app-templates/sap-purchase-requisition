@@ -79,6 +79,11 @@ app.WorkflowItems = (function () {
                 
                 isInit = true;
             } else {
+                dataModel.workItems.filter({
+                    field: "approvalLevel", 
+                    operator: "eq",
+                    value: appSettings.currentUser.Role
+                });
                 dataModel.workItems.read();
             }
         };
@@ -87,12 +92,25 @@ app.WorkflowItems = (function () {
             appSettings.selectedWorkItem = e.dataItem;
             app.mobileApp.navigate("views/workflowitemView.html");
         };
+        
+        var logout = function (e) {
+            app.mobileApp.showLoading();
+            app.everlive.Users.logout(function (success) {
+                app.showAlert("You have been successfully logged out.", "Logout Success", null);
+                app.mobileApp.hideLoading();
+                app.mobileApp.navigate("#:back");
+            }, function (error) {
+                app.mobileApp.hideLoading();
+                app.showError("Error with logout process. Please shut down the application to ensure you are logged out.");
+            });
+        };
 
         return {
             init: init,
             show: show,
             workItems: dataModel.workItems,
-            nav: navToWorkItem
+            nav: navToWorkItem,
+            logout: logout
         }
     }());
 

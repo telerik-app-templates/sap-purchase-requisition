@@ -756,3 +756,12 @@ input[type='week'] {
     margin-right: 1em; 
     margin-left: 1em
 }
+
+#reqApp .reqLabel {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#reqApp .formDiv {
+    margin: 1em;
+}
