@@ -1,25 +1,767 @@
-body {
+.cf:before,
+.cf:after {
+  content: '';
+  display: table;
 }
 
-.genericLabel {
-    margin-left: 12px;
-    clear: both
+.cf:after {
+  clear: both;
 }
 
-.reqLabel {
-    margin-left: 12px;
-    font-weight: bold;
+.km-flat {
+  font-size: .95em;
 }
 
-.reqDetail {
-    position: absolute;
-    right: 12px;
+.km-listinset,
+.km-listgroupinset {
+  margin: 1em 2em;
 }
 
-.reqFloat {
-    float: right;
+#reqApp .activities-view .km-listview,
+#reqApp .add-activity-view .km-listview,
+#reqApp .add-comment-view .km-listview {
+  margin: 1em;
 }
+
+.km-flat .km-rowinsert,
+.km-flat .km-state-active,
+.km-flat .km-scroller-pull,
+.km-flat .k-slider-selection,
+.km-flat .km-touch-scrollbar,
+.km-flat .km-pages .km-current-page,
+.km-flat .k-slider .k-draghandle,
+.km-flat .k-slider .k-draghandle:hover,
+.km-flat .km-tabstrip .km-state-active,
+.km-flat .km-scroller-refresh.km-load-more,
+.km-flat .km-popup .k-state-hover,
+.km-flat .km-popup .k-state-focused,
+.km-flat .km-popup .k-state-selected,
+.km-flat .km-actionsheet > li > a:active,
+.km-flat .km-actionsheet > li > a:hover,
+.km-flat li.km-state-active .km-listview-link,
+.km-flat li.km-state-active .km-listview-label,
+.km-flat .km-listview-label input[type=radio]:checked,
+.km-flat .km-listview-label input[type=checkbox]:checked {
+  background: #4d4d4d;
+}
+
+.km-flat .km-loader {
+  background-color: rgba(0, 0, 0, .75);
+}
+
+.km-flat .km-loader::before {
+  background: none;
+}
+
+#reqApp.km-flat,
+#reqApp.km-flat .km-navbar,
+#reqApp.km-flat .km-content,
+input[type='date'],
+input[type='datetime-local'],
+input[type='month'],
+input[type='time'],
+input[type='week'] {
+  font-family: 'Roboto', sans-serif;
+}
+
+#reqApp.km-flat,
+#reqApp.km-flat .km-navbar,
+#reqApp.km-flat .km-content {
+  border: 0 none;
+  color: #4d4d4d;
+  background-color: #fff;
+}
+
+#reqApp.km-flat .km-navbar {
+  background-color: #fff;
+}
+
+#reqApp.km-flat .km-content {
+  color: #4d4d4d;
+}
+
+#reqApp .hide-text {
+  text-indent: -999px;
+  overflow: hidden;
+}
+
+.disabled {
+  position: relative;
+  display: block;
+}
+
+.disabled:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -1px;
+  bottom: 0;
+  left: -1px;
+  z-index: 1;
+}
+
+/* Forms */
+
+::-webkit-input-placeholder {
+  color: #4d4d4d;
+}
+
+:-moz-placeholder {
+  color: #4d4d4d;
+}
+
+::-moz-placeholder {
+  color: #4d4d4d;
+}
+
+:-ms-input-placeholder {
+  color: #4d4d4d;
+}
+
+#reqApp.km-flat form .km-list > li,
+#reqApp .btn {
+  border-radius: 0;
+}
+
+#reqApp.km-flat form .km-list > li {
+  margin: 0 0 1em;
+  padding: .4em 0;
+  border-width: 0 0 1px;
+  border-color: #c9c9c9;
+  background-color: #fff;
+}
+
+#reqApp.km-flat .km-list input[type='text']:not(.k-input),
+#reqApp.km-flat .km-list input[type='password'],
+#reqApp.km-flat .km-list input[type='email'],
+#reqApp.km-flat .km-list input[type='date'],
+#reqApp.km-flat textarea,
+#reqApp.km-flat select {
+  position: static;
+  width: 100%;
+  height: 30px;
+  font-size: 1rem;
+}
+
+#reqApp.km-flat.km-on-wp .km-list input[type='text']:not(.k-input),
+#reqApp.km-flat.km-on-wp .km-list input[type='password'],
+#reqApp.km-flat.km-on-wp .km-list input[type='email'],
+#reqApp.km-flat.km-on-wp .km-list input[type='date'],
+#reqApp.km-flat.km-on-wp textarea,
+#reqApp.km-flat.km-on-wp select {
+  padding: 0 .4em;
+}
+
+#reqApp.km-flat select {
+  padding: .4em .2em;
+}
+
+#reqApp.km-flat.km-on-wp select {
+  padding: 0 .2em;
+}
+
+/* Buttons */
+
+#reqApp .btn {
+  position: relative;
+  margin: 0 -1px;
+  padding: .8em 0;
+  border: 0 none;
+  color: #fff;
+  font-size: 1rem;
+  background-color: #1976d2;
+}
+
+#reqApp .disabled .btn {
+  opacity: .35;
+}
+
+#reqApp .btn-login {
+  background-color: #e91e63;
+}
+
+#reqApp .btn-signup,
+#reqApp .btn-delete {
+  display: block;
+  text-align: center;
+}
+
+#reqApp .btn-delete {
+  background-color: #e84c3d;
+}
+
+#reqApp .nav-button {
+  border: 0 none;
+  background-color: transparent;
+}
+
+#reqApp .nav-button-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+#reqApp .nav-button-back {
+  background-image: url(images/icon-arrow_dark.png);
+}
+
+#reqApp .nav-button-back {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 2em;
+    height: 2em;
+    border: 0 none;
+    background-color: transparent;
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+}
+
+#reqApp .nav-button-back-d {
+  background-image: url(images/icon-arrow_dark.png);
+}
+
+#reqApp .nav-button-comment {
+  background-image: url(images/icon-comment.png);
+}
+
+#reqApp .nav-button-delete {
+  background-image: url(images/icon-delete.png);
+}
+
+#reqApp .nav-button.km-state-active {
+  color: #000;
+}
+
+#reqApp .activity-view .user-status-wrp .km-navbar .nav-button,
+#reqApp .activity-view .user-status-wrp .km-navbar .nav-button.km-state-active {
+  color: #fff;
+}
+
+/* App Header */
+
+#reqApp.km-flat.km-on-ios.km-black-translucent-status-bar .km-header {
+  min-height: 20px;
+  background-color: #4d4d4d;
+}
+
+#reqApp.km-flat.km-on-ios.km-black-translucent-status-bar .km-header .km-navbar {
+  margin-top: 20px;
+  padding-top: .5em;
+}
+
+#reqApp.km-flat .km-header .km-navbar {
+  min-height: 3.15em;
+}
+
+#reqApp.km-flat .km-header .km-navbar {
+  border-bottom: 1px solid #c9c9c9;
+}
+
+#reqApp.km-flat .km-header .km-view-title {
+  font-size: 1.3em;
+}
+
+/* App Footer */
+
+#reqApp .welcome-scrn .km-footer {
+    background-color: transparent;
+    'color: #fff;
+    text-align: center;
+}
+
+#reqApp .welcome-scrn .km-footer p {
+    font-size: .75rem;
+}
+
+/* Welcome screen */
+
+#reqApp .app-name {
+  margin-top: 1.5em;
+}
+
+#reqApp .app-name {
+  width: 250px;
+  height: 119px;
+  margin: 1.5em auto;
+  'text-indent: -9999px;
+  'background: transparent url(images/logo-friends.png) no-repeat 0 0;
+  overflow: hidden;
+}
+
+#reqApp .app-name small {
+  display: block;
+  font-weight: 400;
+  font-size: 1.15rem;
+}
+
+#reqApp .welcome-scrn .group-wrp {
+  margin: 0 2em;
+  padding: 0;
+  text-align: center;
+  list-style-type: none;
+}
+
+#reqApp .welcome-scrn .group-wrp li {
+  margin: 1.5em 0 0;
+}
+
+#reqApp .welcome-scrn .group-wrp li:first-child {
+  margin-top: 0;
+}
+
+#reqApp .welcome-scrn .group-wrp .btn {
+  display: block;
+}
+
+#reqApp .welcome-scrn .group-wrp .oauth {
+  margin-right: -1%;
+  margin-left: -1%;
+}
+
+#reqApp .welcome-scrn .group-wrp .oauth .oauth-item {
+  float: left;
+  width: 23%;
+  margin: 0 1%;
+}
+
+#reqApp .welcome-scrn .group-wrp .oauth .btn {
+  height: 45px;
+  padding-top: 1.1em;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+#reqApp .welcome-scrn .group-wrp .oauth .btn-facebook {
+  background-image: url(images/logo-facebook.png);
+}
+
+#reqApp .welcome-scrn .group-wrp .oauth .btn-google {
+  background-image: url(images/logo-google.png);
+}
+
+#reqApp .welcome-scrn .group-wrp .oauth .btn-windows {
+  background-image: url(images/logo-windows.png);
+}
+
+#reqApp .welcome-scrn .group-wrp .oauth .btn-adfs {
+  background-image: url(images/logo-adfs.png);
+}
+
+#reqApp .welcome-scrn .group-wrp .oauth .btn span,
+#reqApp .welcome-scrn .group-wrp .btn-signup span {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+#reqApp .welcome-scrn .group-wrp .btn-signup {
+  border: 0 none;
+  background-color: transparent;
+}
+
+/* No API Key screen */
+
+#reqApp .noapikey-scrn h3 {
+  line-height: 1.25;
+}
+
+#reqApp .noapikey-scrn p {
+  line-height: 1.5;
+}
+
+#reqApp .noapikey-scrn p strong,
+#reqApp .noapikey-scrn p span {
+  color: #000;
+}
+
+#reqApp .noapikey-scrn p span {
+  font-weight: 600;
+}
+
+/* Signup */
+
+#reqApp.km-flat textarea {
+  float: none;
+  height: auto;
+  margin: 0;
+  resize: none;
+}
+
+#reqApp .signup-view .signup-btn-wrp {
+  margin: 0 2em;
+}
+
+#reqApp .signup-view .select-wrp select {
+  color: #4d4d4d;
+}
+
+#reqApp .signup-view .select-wrp option:first-child {
+  color: #b6c5c6;
+}
+
+/* Activities */
+
+#reqApp .activity-view .user-status-wrp .km-navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  padding-top: .5em;
+  background-color: transparent;
+}
+
+#reqApp .activity-view .user-status-wrp .content {
+  padding: 1em;
+}
+
+#reqApp .activity-view .activity-content {
+  padding: 0;
+}
+
+#reqApp .activity-view .activity-content > span {
+  padding: 1em 0;
+}
+
+#reqApp .activity-view .user-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  padding: 0 1em .5em;
+}
+
+#reqApp .activity-view .user-info .person-name,
+#reqApp .activity-view .user-info .time-span {
+  color: #fff;
+}
+
+#reqApp .activity-view .user-info .person-name {
+  display: inline-block;
+  float: left;
+  margin: 1em;
+}
+
+#reqApp .activity-view .user-info .time-span {
+  display: inline-block;
+  float: right;
+  min-width: 80px;
+  margin: 1.65em 0 0 0;
+  font-size: .85em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+#reqApp .activities-view .km-list > li,
+#reqApp .activity-view .km-list > li {
+  padding: .75em 0 1em;
+  border-width: 0;
+  color: #4d4d4d;
+  background-color: #fff;
+  box-shadow: none;
+  overflow: visible;
+}
+
+#reqApp .activities-view .km-list > li {
+  position: relative;
+  border-width: 0;
+}
+
+#reqApp .activities-view .km-list > li::before,
+#reqApp .activity-view .km-list > li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 4.5em;
+  display: block;
+  height: 1px;
+  border-bottom: 1px solid #eaeced;
+}
+
+#reqApp .activities-view .km-list > li:first-child::before {
+  display: none;
+}
+
+#reqApp .activity-view .km-list > li::before {
+  left: 5em;
+}
+
+#reqApp .activity-view .comments-wrp {
+  margin-top: 1em;
+}
+
+#reqApp .activities-view .km-list > li:first-child {
+  padding-top: 0;
+}
+
+#reqApp .user-avatar {
+  float: left;
+  width: 50px;
+}
+
+#reqApp .user-avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+}
+
+/*#reqApp .activity-content,*/
+#reqApp .comment-content {
+  position: relative;
+  padding-left: 5em;
+  font-size: .85rem;
+}
+
+#reqApp .activity-content .picture {
+  margin: 0 0 1em;
+}
+
+#reqApp .person-name,
+#reqApp .activity-content .time-span {
+  font-weight: 600;
+}
+
+#reqApp .person-name {
+  display: block;
+  margin: 0 0 .5em;
+  color: #e91e63;
+  font-size: 1.1rem;
+}
+
+#reqApp .person-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#reqApp .activity-content .time-span {
+  display: block;
+  color: #a6a6a6;
+  font-size: .7rem;
+  text-transform: uppercase;
+}
+
+#reqApp .activity-content .comment-content .time-span {
+  top: 12px;
+  font-size: .6rem;
+}
+
+#reqApp .user-share-txt {
+  display: block;
+  margin-bottom: 1em;
+  color: #4d4d4d;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+#reqApp .activities-view .person-name,
+#reqApp .activity-view .person-name,
+#reqApp .add-activity-view .person-name,
+#reqApp .add-comment-view .person-name {
+  margin: .85em 0 1em;
+}
+
+#reqApp .add-activity-view .person-name,
+#reqApp .add-comment-view .person-name {
+  padding-left: .75em;
+}
+
+#reqApp .activity-view .picture-wrp {
+  position: relative;
+  height: 258px;
+  margin: 0 auto;
+  text-align: center;
+  background: transparent url(images/default-image.jpg) no-repeat 50% 50%;
+  background-size: 100% 258px;
+  overflow: hidden;
+}
+
+#reqApp .activity-view .picture-wrp::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 258px;
+  background: transparent url(images/background-picture.png) repeat-x 0 0;
+}
+
+#reqApp .activity-view .picture {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  min-height: 100%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+#reqApp .add-activity-view .km-leftitem,
+#reqApp .add-comment-view .km-leftitem {
+  left: 1em;
+}
+
+#reqApp .add-activity-view .km-rightitem,
+#reqApp .add-comment-view .km-rightitem,
+#reqApp .activity-view .km-rightitem {
+  right: 1em;
+}
+
+#reqApp.km-black-translucent-status-bar .km-navbar .km-leftitem,
+#reqApp.km-black-translucent-status-bar .km-navbar .km-rightitem {
+  font-size: .85em;
+  text-transform: uppercase;
+}
+
+#reqApp.km-black-translucent-status-bar .km-navbar .km-leftitem .fa,
+#reqApp.km-black-translucent-status-bar .km-navbar .km-rightitem .fa {
+  font-size: 1.8em;
+}
+
+#reqApp .k-invalid-msg {
+  display: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  color: #e84c3d;
+}
+
+#reqApp.km-flat.km-on-wp .activities-view,
+#reqApp.km-flat.km-on-wp .activity-view,
+#reqApp.km-flat.km-on-wp .add-activity-view,
+#reqApp.km-flat.km-on-wp .add-comment-view {
+    margin-top: 30px;
+}
+
+/* Retina Images */
+
+@media (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+  #reqApp .app-name {
+    background-image: url(images/logo-friends@2x.png);
+    background-size: 127px 119px;
+  }
+
+  #reqApp .nav-button,
+  #reqApp .welcome-scrn .group-wrp .oauth .btn {
+    background-size: 40px 40px;
+  }
+
+  #reqApp .nav-button-back {
+    background-image: url(images/icon-arrow_dark@2x.png);
+  }
+
+  #reqApp .nav-button-back-d {
+    background-image: url(images/icon-arrow_dark@2x.png);
+  }
+
+  #reqApp .nav-button-comment {
+    background-image: url(images/icon-comment@2x.png);
+  }
+
+  #reqApp .nav-button-delete {
+    background-image: url(images/icon-delete@2x.png);
+  }
+
+  #reqApp .welcome-scrn .group-wrp .oauth .btn-facebook {
+    background-image: url(images/logo-facebook@2x.png);
+  }
+
+  #reqApp .welcome-scrn .group-wrp .oauth .btn-google {
+    background-image: url(images/logo-google@2x.png);
+  }
+
+  #reqApp .welcome-scrn .group-wrp .oauth .btn-windows {
+    background-image: url(images/logo-windows@2x.png);
+  }
+
+  #reqApp .welcome-scrn .group-wrp .oauth .btn-adfs {
+    background-image: url(images/logo-adfs@2x.png);
+  }
+}
+
+/* added */
 
 #workflow-item-div div {
     margin-bottom: 1.5em;
+}
+
+#reqApp body {
+    color: #4c5356;
+}
+
+#reqApp .item-name-title {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: .3em;
+}
+
+#reqApp .item-label {
+    margin-left: 1em;
+    margin-right: .2em;
+}
+
+#reqApp .desc-label {
+    margin-left: 12px;
+}
+
+#reqApp .mapContainer {
+    margin: 1em;
+    height: 300px;
+}
+
+#reqApp .no-decoration {
+    text-decoration: none;
+}
+
+#reqApp .span-label {
+    font-size: 1.4em;
+}
+
+#reqApp .questionLabel {
+    font-weight: bold;
+}
+
+#reqApp .form-paragraph {
+    margin: 0px;
+}
+
+#reqApp .dropdownLabel {
+    margin-bottom: .25em
+}
+
+#reqApp .dropdownLabel span {
+    color: #4c5356;
+}
+
+#reqApp .txt {
+    color: #4c5356;
+}
+
+#reqApp .btn-wrp {
+    width: 100%;
+    margin: 0 1em;
+}
+
+#reqApp .btn-fix {
+    margin-bottom: 1em; 
+    margin-right: 1em; 
+    margin-left: 1em
+}
+
+#reqApp .reqLabel {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#reqApp .formDiv {
+    margin: 1em;
 }

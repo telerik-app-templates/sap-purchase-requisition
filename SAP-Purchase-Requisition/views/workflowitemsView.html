@@ -1,21 +1,24 @@
-<div data-role="view" id="workflow-items-view" data-model="app.WorkflowItems" data-init="app.WorkflowItems.init" data-after-show="app.WorkflowItems.afterShow">
+<div data-role="view" id="workflow-items-view" data-model="app.WorkflowItems" 
+     data-init="app.WorkflowItems.init" 
+     data-show="app.WorkflowItems.show">
     <header data-role="header">
         <div data-role="navbar">
             <span>Active </span><span data-role="view-title"></span>
+            <a data-role="button" data-align="left" data-bind="events: { click: logout }">Logout</a>
         </div>
     </header>
 
-    <ul id="workflow-items-list" data-role="listview" data-bind="source: workItems" data-template="workflowitemsTemplate">
-
+    <ul id="workflow-items-list">
+        
     </ul>
 </div>
 
 <script type="text/x-kendo-template" id="workflowitemsTemplate">
     <div data-role="touch" data-bind="events : { tap : nav }"> 
-        <h3>${CreatedByName}</h3>
+        <h3>${createdByName}</h3>
         <div>
-            <span>${Value} ${Currency}</span>
-            <span style="position: absolute; right: 12px">${ItemDescriptions}</span>
+            <span>${value} ${currency}</span>
+            <span style="position: absolute; right: 12px">${description}</span>
         </div>    
     </div>
 </script>

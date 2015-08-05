@@ -1,19 +1,28 @@
-<div data-role="view" id="workflow-action-view" data-model="app.WorkflowAction" data-show="app.WorkflowAction.show">
+<div data-role="view" id="workflow-action-view" data-model="app.WorkflowAction" 
+     data-show="app.WorkflowAction.show"
+     data-hide="app.WorkflowAction.hide">
     <header data-role="header">
         <div data-role="navbar">
-            <span id="workflow-action-title"></span>
+            <span id="workflow-action-title">K</span>
         </div>
     </header>
     <div>
         <div align="center">
-            <span id="action-title"></span>Purchase Requisition
+            <h2>
+                Purchase Requisition
+            </h2>
+            <p>
+                Please enter a comment to be retained along with the approval chain process.
+            </p>
         </div>
         <ul data-role="listview" data-style="inset">
             <li>
                 <textarea style="height: 120px" rows="10" id="action-comment" placeholder="(Optional Comment)"></textarea>
             </li>
         </ul>
-        <a data-role="button" data-bind="events: { click: submit }">Submit</a>
-        <a data-role="button" data-bind="events: { click: cancel }">Cancel</a>
+        <div align="center">
+            <a data-role="button" data-bind="events: { click: submit }">Submit</a>
+        	<a data-role="button" data-bind="events: { click: cancel }">Cancel</a>
+        </div>
     </div>
 </div>

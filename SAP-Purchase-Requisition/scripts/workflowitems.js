@@ -2,107 +2,115 @@ var app = app || {};
 
 app.WorkflowItems = (function () {
     'use strict'
-
-    var workflowitemsModel = (function () {
-
-        var wfiModel = {
-            id: 'WorkitemID',
+    
+    var dataModel = (function () {
+        var wiModel = {
+            id: Everlive.idField,
             fields: {
-                createdAt: {
-                    field: 'WiCreatedAt',
-                    type: 'date'
+                workItemId: {
+                    field: 'WorkItemId',
+                    defaultValue: ''                    
                 },
-                createdBy: {
-                    field: 'CreatedByName'
-                },
-                value: {
-                    field: 'Value'
-                },
-                currency: {
-                    field: 'Currency'
-                },
-                supplier: {
-                    field: 'SupplierName'
+                approvalLevel: {
+                    field: 'ApprovalLevel',
+                    defaultValue: ''                    
                 },
                 description: {
-                    field: 'ItemDescriptions'
+                    field: 'Description',
+                    defaultValue: ''
                 },
-                ponumber: {
-                    field: 'PoNumber'
-                }
+                supplierName: {
+                    field: 'SupplierName',
+                    defaultValue: ''                    
+                },
+                currency: {
+                    field: 'Currency',
+                    defaultValue: ''                    
+                },
+                value: {
+                    field: 'Value',
+                    defaultValue: ''                    
+                },
+                createdByName: {
+                    field: 'CreatedByName',
+                    defaultValue: ''                    
+                }                
             }
         };
-
-        var wfiDataSource = new kendo.data.DataSource({
-            type: 'odata',
-            scheme: {
-                model: wfiModel,
-                data: function (response) {
-                    console.log(response);
-                    return response.d.results;
-                }
+        
+        var wiDataSource = new kendo.data.DataSource({
+            type: 'everlive',
+            schema: {
+                model: wiModel
             },
             transport: {
-                read: {
-                    url: appSettings.endpoints.prWorkflowItems,
-                    dataType: 'json',
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader("Authorization", localStorage.getItem("authHeaderValue"));
-                        xhr.setRequestHeader("x-csrf-token", "fetch");
-                    },
-                    complete: function (xhr) {
-                        localStorage.setItem("token", xhr.getResponseHeader("X-CSRF-Token"));
-                    }
-                },
-                parameterMap: function (options, type) {
-                    var paramMap = kendo.data.transports.odata.parameterMap(options);
-
-                    delete paramMap.$inlinecount; // <-- remove inlinecount parameter.
-                    //delete paramMap.$format; // <-- remove format parameter.
-
-                    return paramMap;
-                }
-            },
-            sort: {
-                field: 'CreatedAt',
-                dir: 'desc'
+                typeName: 'WorkItem'
             }
         });
-
+        
         return {
-            workflowitems: wfiDataSource
+            workItems: wiDataSource
         }
     }());
 
     var workflowitemsViewModel = (function () {
 
         var navbar;
+        var isInit = false;
 
-        var init = function ( e ) {
+        var init = function (e) {
             navbar = e.view.header.find('.km-navbar').data('kendoMobileNavBar');
         };
 
-        var afterShow = function () {
-            var dataSource = workflowitemsModel.workflowitems;
-            appSettings.itemUpdated = false;
-            dataSource.read();
+        var show = function (e) {
+            if (!isInit) {
+                dataModel.workItems.filter({
+                    field: "approvalLevel", 
+                    operator: "eq",
+                    value: appSettings.currentUser.Role
+                });
+
+                $("#workflow-items-list").kendoMobileListView({
+                    dataSource: dataModel.workItems,
+                    style: 'inset',
+                    template: kendo.template($("#workflowitemsTemplate").html()),
+                    click: navToWorkItem
+                });
                 
-            dataSource.bind("change", function () {
-                navbar.title("(" + this.data().length + ")");
-            });
+                isInit = true;
+            } else {
+                dataModel.workItems.filter({
+                    field: "approvalLevel", 
+                    operator: "eq",
+                    value: appSettings.currentUser.Role
+                });
+                dataModel.workItems.read();
+            }
         };
 
         var navToWorkItem = function (e) {
-            appSettings.selectedWorkItem = e.data;
+            appSettings.selectedWorkItem = e.dataItem;
             app.mobileApp.navigate("views/workflowitemView.html");
+        };
+        
+        var logout = function (e) {
+            app.mobileApp.showLoading();
+            app.everlive.Users.logout(function (success) {
+                app.showAlert("You have been successfully logged out.", "Logout Success", null);
+                app.mobileApp.hideLoading();
+                app.mobileApp.navigate("#:back");
+            }, function (error) {
+                app.mobileApp.hideLoading();
+                app.showError("Error with logout process. Please shut down the application to ensure you are logged out.");
+            });
         };
 
         return {
             init: init,
-            afterShow: afterShow,
-            workItems: workflowitemsModel.workflowitems,
-            nav: navToWorkItem
-
+            show: show,
+            workItems: dataModel.workItems,
+            nav: navToWorkItem,
+            logout: logout
         }
     }());
 

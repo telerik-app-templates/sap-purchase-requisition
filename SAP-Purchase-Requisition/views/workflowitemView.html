@@ -1,68 +1,47 @@
-<div data-role="view" id="workflow-item-view" data-model="app.WorkflowItem" data-init="app.WorkflowItem.init" data-before-show="app.WorkflowItem.beforeShow">
+<div data-role="view" id="workflow-item-view" data-model="app.WorkflowItem" 
+     data-init="app.WorkflowItem.init" 
+     data-before-show="app.WorkflowItem.beforeShow"
+     data-hide="app.WorkflowItem.hide">
     <header data-role="header">
         <div data-role="navbar">
-            WorkItem
-            <a data-role="backbutton" data-align="left" data-icon="arrow-back"></a>
+            WorkItem 
+            <a data-role="backbutton" data-align="left">Back</a>
             <a data-role="button" data-align="right" data-icon="details" data-bind="events: { click: approve }"></a>
             <a data-role="button" data-align="right" data-icon="reply" data-bind="events: { click: reject }"></a>
         </div>
     </header>
 
-<!--    <ul data-role="listview" id="item-details-listview" data-style="inset" data-bind="source: workflowDetails" data-template="workflowitemTemplate">
-
-    </ul>-->
-
-    <div id="workflow-item-div">
-        <h2 data-bind="text: CreatedByID"></h2>
+    <div id="workflow-item-div" class="formDiv">
         <div>
-            <span class="reqLabel">Purchase Requisition:</span><br/>
-            <span class="reqDetail" data-bind="text: PrNumber"></span>
+            <span class="reqLabel">Purchase Requisition</span><br/>
+            <span class="reqDetail" data-bind="text: workItemId"></span>
         </div>
         <div>
-            <span class="reqLabel">Material:</span><br />
-            <span class="reqDetail" data-bind="text: Description"></span>
+            <span class="reqLabel">Description</span><br />
+            <span class="reqDetail" data-bind="text: description"></span>
         </div>
         <div>
-            <span class="reqLabel">Quantity:</span><br />
-            <span class="reqDetail" data-bind="text: Quantity"></span>
+            <span class="reqLabel">Quantity</span><br />
+            <span class="reqDetail" data-bind="text: quantity"></span>
         </div>
         <div>
-            <span class="reqLabel">Unit Price:</span><br />
-            <span class="reqDetail" data-bind="text: FormattedPrice"></span>
+            <span class="reqLabel">Unit Price</span><br />
+            <span class="reqDetail" data-bind="text: unitPrice"></span>
         </div>
         <div>
-            <span class="reqLabel">Material Group:</span><br />
-            <span class="reqDetail" data-bind="text: MaterialGroup"></span>
-        </div>
-        <div>
-            <span class="reqLabel">Plant:</span><br />
-            <span class="reqDetail" data-bind="text: DeliveryAddress.PlantName"></span>
+            <span class="reqLabel">Plant</span><br />
+            <span class="reqDetail" data-bind="text: deliveryPlant"></span>
         </div>
     </div>
 
-    <div id="notes-div">
-        <h2>Notes</h2>
+    <div id="notes-div" class="formDiv">
+        <span class="reqLabel">Notes</span><br/>
         <ul id="notes-list"></ul>
     </div>
 </div>
 
 <script type="text/x-kendo-template" id="notes-item-template">
     <span>Approver: </span>
-    <span class="reqDetail">${CreatedByID}</span><br/>
-    <span class="genericLabel">${Text}</span>
+    <span class="reqDetail">${createdBy}</span><br/>
+    <span class="genericLabel">${text}</span>
 </script>
-
-<!--
-    <div>
-        <span class="reqLabel"></span><br />
-        <span class="reqDetail" data-bind="text: "></span>
-    </div>
-
-    <div data-role="touch" data-bind="events : { tap : nav }"> 
-        <h3>${CreatedByName}</h3>
-        <div>
-            <span>${Value} ${Currency}</span>
-            <span style="position: absolute; right: 12px">${ItemDescriptions}</span>
-        </div>
-    </div>
--->
